@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+#root {
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto; /* will adjust the optical size depending on font size */
+  font-style: normal; /* with this configuration, our App will now use the inter font */
+}
+
+/* Hide scrollbar for all browsers */
+.scrollbar-hide {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
+}
