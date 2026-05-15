@@ -10,7 +10,7 @@
 // vegan gear
 
 // Farben
-import React from 'react'
+import React, { useState } from 'react'
 import { BrowserRouter, Route, Routes, useLocation, useNavigationType } from "react-router-dom";
 import { useEffect, useRef } from 'react';
 import { PayPalScriptProvider } from "@paypal/react-paypal-js";
@@ -129,6 +129,51 @@ import BugReportConfirmation from "@/pages/BugReportConfirmation.jsx";
 import EmailVerification from "./pages/EmailVerification.jsx";
 import {updateWishlistCount} from "@/redux/slices/productsSlice.js";
 
+// Under Construction Loading Screen Component
+const UnderConstructionScreen = ({ onComplete }) => {
+    const [showContent, setShowContent] = useState(false);
+
+    useEffect(() => {
+        // Show the construction message for 8 seconds, then fade in the website
+        const timer = setTimeout(() => {
+            setShowContent(true);
+            // Give time for the fade animation, then call onComplete
+            setTimeout(() => {
+                onComplete();
+            }, 1000); // 1 second for fade animation
+        }, 8000); // 8 seconds showing "under construction"
+
+        return () => clearTimeout(timer);
+    }, [onComplete]);
+
+    return (
+        <div className={`fixed inset-0 z-50 flex items-center justify-center bg-gradient-to-br from-neutral-900 to-neutral-800 transition-opacity duration-1000 ${
+            showContent ? 'opacity-0 pointer-events-none' : 'opacity-100'
+        }`}>
+            <div className="text-center">
+                <div className="mb-8">
+                    <svg className="w-24 h-24 mx-auto mb-4 text-red-200 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                </div>
+                <h1 className="text-4xl md:text-6xl font-bold text-red-400 mb-4 fade-in">
+                    This site is
+                </h1>
+                <h2 className="text-3xl md:text-5xl font-bold text-red-500 mb-8 animate-pulse">
+                    under construction
+                </h2>
+                <div className="flex justify-center">
+                    <div className="w-16 h-1 bg-red-200 rounded-full animate-pulse"></div>
+                </div>
+                <p className="text-neutral-400 mt-8 text-lg">
+                    Please wait while we prepare your experience...
+                </p>
+            </div>
+        </div>
+    );
+};
+
 const WishlistInitializer = () => {
     const dispatch = useDispatch();
     const { user } = useSelector((state) => state.auth);
@@ -183,8 +228,18 @@ const WishlistInitializer = () => {
 };
 
 const App = () => {
+    const [isLoading, setIsLoading] = useState(true);
+
+    const handleLoadingComplete = () => {
+        setIsLoading(false);
+    };
+
     return (
         <Provider store={store}>
+            {/* Under Construction Loading Screen */}
+            {isLoading && (
+                <UnderConstructionScreen onComplete={handleLoadingComplete} />
+            )}
 
             {/* open Login.jsx file > import { loginUser } from '../redux/slices/authSlice' */}
             {/*// enables the client side routing*/}
