@@ -141,7 +141,7 @@ const OrderDetailsPage = () => {
         };
     }, [navigate]);
 
-    if (loading) return <p>Loading...</p>;
+    // if (loading) return <p>Loading...</p>;
     if (error) return <p>Error: {error}</p>;
 
     // Set background and text classes based on theme

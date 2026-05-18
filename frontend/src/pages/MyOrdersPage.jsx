@@ -78,7 +78,7 @@ const MyOrdersPage = () => {
         navigate(`/order/${orderId}`);
     } // handleRowClick
 
-    if (loading) return <p>Loading...</p>;
+    // if (loading) return <p>Loading...</p>;
     if (error) return <p>Error: {error}</p>;
 
 

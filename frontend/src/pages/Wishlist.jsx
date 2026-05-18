@@ -7,6 +7,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import FilterSidebar from '../components/Products/FilterSidebar';
 import SortOptions from '../components/Products/SortOptions';
 import { getColorHex } from '../utils/colorUtils';
+import ChaseNorthBlack from '../assets/ChaseNorth_x-black.svg';
+import ChaseNorthWhite from '../assets/ChaseNorth_x-white.svg';
 
 // Helper function to check if product is new (added within last 14 days)
 const isProductNew = (createdAt) => {
@@ -21,12 +23,12 @@ const isProductNew = (createdAt) => {
 const CornerIcon = ({ className }) => (
     <>
       <img
-          src="/src/assets/ChaseNorth_x-black.svg"
+          src={ChaseNorthBlack}
           alt=""
           className={`${className} w-6 h-6 dark:hidden`}
       />
       <img
-          src="/src/assets/ChaseNorth_x-white.svg"
+          src={ChaseNorthWhite}
           alt=""
           className={`${className} w-6 h-6 hidden dark:block`}
       />
@@ -395,18 +397,18 @@ const Wishlist = () => {
     window.location.href = `/product/${productId}`;
   };
 
-  if (loading) {
-    return (
-        <div className={`min-h-screen ${isDay ? 'bg-neutral-50' : 'bg-neutral-950'}`}>
-          <div className="container mx-auto px-4 py-8">
-            <h2 className={`text-2xl uppercase mb-4 mt-20 ${isDay ? 'text-neutral-950' : 'text-neutral-50'}`}>
-              YOUR WISHLIST
-            </h2>
-            <p className={`ml-2 mb-4 mt-16 ${isDay ? 'text-neutral-950' : 'text-neutral-50'}`}>Loading...</p>
-          </div>
-        </div>
-    );
-  }
+  // if (loading) {
+  //   return (
+  //       <div className={`min-h-screen ${isDay ? 'bg-neutral-50' : 'bg-neutral-950'}`}>
+  //         <div className="container mx-auto px-4 py-8">
+  //           <h2 className={`text-2xl uppercase mb-4 mt-20 ${isDay ? 'text-neutral-950' : 'text-neutral-50'}`}>
+  //             YOUR WISHLIST
+  //           </h2>
+  //           <p className={`ml-2 mb-4 mt-16 ${isDay ? 'text-neutral-950' : 'text-neutral-50'}`}>Loading...</p>
+  //         </div>
+  //       </div>
+  //   );
+  // }
 
   return (
       <div className={`flex flex-col lg:flex-row pt-24 min-h-screen ${isDay ? 'bg-neutral-50' : 'bg-neutral-950'}`}>

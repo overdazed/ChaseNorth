@@ -3,6 +3,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { CanvasRevealEffect } from "@/components/ui/CanvasRevealEffect";
 import { Link } from "react-router-dom";
 import { getColorHex } from "@/utils/colorUtils";
+import ChaseNorthBlack from "../../assets/ChaseNorth_x-black.svg";
+import ChaseNorthWhite from "../../assets/ChaseNorth_x-white.svg";
 
 const normalizeApiBase = (value) => {
   if (!value) return 'https://chasenorthbackend-production.up.railway.app';
@@ -120,8 +122,8 @@ const AceternityIcon = ({ isDarkMode }) => {
 
 const Icon = ({ className, isDarkMode, ...rest }) => {
   const logo = isDarkMode
-      ? "/src/assets/ChaseNorth_x-white.svg"
-      : "/src/assets/ChaseNorth_x-black.svg";
+      ? ChaseNorthWhite
+      : ChaseNorthBlack;
 
   return (
       <img

@@ -28,8 +28,9 @@ router.post('/generate', protect, async (req, res) => {
         }
 
         // In invoiceRoutes.js, update the orderData preparation:
+        const orderItems = order.orderItems || [];
         const orderData = {
-            items: order.orderItems.map(item => ({
+            items: orderItems.map(item => ({
                 name: item.name,
                 description: item.description || '',
                 quantity: item.quantity,
@@ -38,11 +39,13 @@ router.post('/generate', protect, async (req, res) => {
                 size: item.size,
                 color: item.color
             })),
-            subtotal: order.price || order.orderItems.reduce((sum, item) => sum + (item.price * item.quantity), 0),
+            subtotal: order.subtotal || 
+                      orderItems.reduce((sum, item) => sum + ((item.price || 0) * (item.quantity || 0)), 0),
             discount: order.discount || null,
             tax: order.tax || 0,
             shippingCost: order.shippingCost || order.shippingPrice || 0, // Use shippingCost first, fallback to shippingPrice for backward compatibility
-            total: order.totalPrice || (order.price + order.tax + (order.shippingCost || order.shippingPrice || 0)),
+            total: order.totalPrice || 
+                   ((order.subtotal || 0) + (order.shippingCost || 0) - ((order.discount && order.discount.amount) || 0)),
             orderDate: order.paidAt || order.createdAt,
             orderId: order._id,
             notes: 'Thank you for your order!',
@@ -71,7 +74,12 @@ router.post('/generate', protect, async (req, res) => {
             email: process.env.COMPANY_EMAIL,
             phone: process.env.COMPANY_PHONE,
             website: process.env.COMPANY_WEBSITE,
-            tax_rate: parseFloat(process.env.TAX_RATE)
+            tax_rate: parseFloat(process.env.TAX_RATE),
+            // Bank details
+            bank_name: process.env.COMPANY_BANK_NAME,
+            iban: process.env.COMPANY_IBAN,
+            bic: process.env.COMPANY_BIC,
+            steuernummer: process.env.COMPANY_STEUERNUMMER
         };
 
         // Customer information

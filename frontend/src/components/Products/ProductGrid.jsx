@@ -1,6 +1,8 @@
 import { Link, useLocation } from "react-router-dom"
 import HeartIcon from "../ui/HeartIcon"
 import { getColorHex } from "@/utils/colorUtils";
+import ChaseNorthBlack from "../../assets/ChaseNorth_x-black.svg";
+import ChaseNorthWhite from "../../assets/ChaseNorth_x-white.svg";
 
 // Helper function to check if product is new (added within last 14 days)
 const isProductNew = (createdAt) => {
@@ -22,10 +24,6 @@ const ProductGrid = ({ products, loading, error, isDay = true, newStarBadgeSize 
         background: ''
     };
     const location = useLocation();
-    if (loading) {
-        return <p>Loading...</p>;
-    }
-
     if (error) {
         return <p>Error: {error}</p>; // update also ProductDetails in Home.jsx
     }
@@ -40,13 +38,13 @@ const ProductGrid = ({ products, loading, error, isDay = true, newStarBadgeSize 
         <>
             {/* Light mode icon (black) */}
             <img 
-                src="/src/assets/ChaseNorth_x-black.svg"
+                src={ChaseNorthBlack}
                 alt=""
                 className={`${className} w-6 h-6 dark:hidden`}
             />
             {/* Dark mode icon (white) */}
             <img 
-                src="/src/assets/ChaseNorth_x-white.svg"
+                src={ChaseNorthWhite}
                 alt=""
                 className={`${className} w-6 h-6 hidden dark:block`}
             />

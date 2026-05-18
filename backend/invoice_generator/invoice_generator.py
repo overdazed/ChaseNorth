@@ -202,10 +202,15 @@ class InvoiceGenerator:
                 order['orderItems'] = order['items']
 
             # Prepare context for template
+            # Use explicit total if provided, otherwise fall back to totalPrice
+            final_total = order.get('total') or order.get('totalPrice', 0)
+            final_subtotal = order.get('subtotal', 0)
+
             context = {
                 'order': {
                     **order,
-                    'total': order.get('totalPrice', 0)
+                    'total': final_total,
+                    'subtotal': final_subtotal
                 },
                 'company_name': company_data.get('name', ''),
                 'company_contact_name': company_data.get('contact_name', ''),
@@ -217,10 +222,14 @@ class InvoiceGenerator:
                 'company_email': company_data.get('email', ''),
                 'company_phone': company_data.get('phone', ''),
                 'company_website': company_data.get('website', ''),
+                'company_bank_name': company_data.get('bank_name', ''),
+                'company_iban': company_data.get('iban', ''),
+                'company_bic': company_data.get('bic', ''),
+                'company_steuernummer': company_data.get('steuernummer', ''),
                 'invoice_number': invoice_number,
                 'invoice_date': datetime.now().strftime('%B %d, %Y'),
                 'due_date': (datetime.now() + relativedelta(days=30)).strftime('%B %d, %Y'),
-                'total': order.get('totalPrice', 0)
+                'total': final_total
             }
 
             # Debug logging
