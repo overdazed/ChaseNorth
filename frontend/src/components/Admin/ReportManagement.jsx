@@ -62,7 +62,8 @@ const ReportManagement = () => {
             try {
                 setLoading(true);
                 const token = localStorage.getItem('userToken');
-                const response = await axios.get('http://localhost:9000/api/admin/reports', {
+                const API_URL = import.meta.env.VITE_API_URL || 'https://chasenorthbackend-production.up.railway.app';
+                const response = await axios.get(`${API_URL}/api/admin/reports`, {
                     headers: {
                         'Authorization': `Bearer ${token}`
                     },

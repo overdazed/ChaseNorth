@@ -4,6 +4,8 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 import axios from 'axios';
 
+const API_URL = import.meta.env.VITE_API_URL || 'https://chasenorthbackend-production.up.railway.app';
+
 // Helper function to get auth token from localStorage
 const getAuthToken = () => {
     return localStorage.getItem('userToken') || '';
@@ -171,7 +173,7 @@ export const forgotPassword = createAsyncThunk(
         try {
             // Make sure we're sending just the email string, not an object
             const response = await axios.post(
-                `${import.meta.env.VITE_API_URL}/api/users/forgot-password`,
+                `${API_URL}/api/users/forgot-password`,
                 { email }  // This creates { email: email }
             );
             return response.data;
@@ -186,7 +188,7 @@ export const resetPassword = createAsyncThunk(
     async ({ token, password, passwordConfirm }, { rejectWithValue }) => {
         try {
             const response = await axios.patch(
-                `${import.meta.env.VITE_API_URL}/api/users/reset-password/${token}`,
+                `${API_URL}/api/users/reset-password/${token}`,
                 {
                     password,
                     passwordConfirm

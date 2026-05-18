@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
+const API_URL = import.meta.env.VITE_API_URL || 'https://chasenorthbackend-production.up.railway.app';
+
 const EmailVerification = () => {
     const [searchParams] = useSearchParams();
     const navigate = useNavigate();
@@ -17,7 +19,7 @@ const EmailVerification = () => {
 
                 // Instead of calling backend API, redirect directly to backend verification endpoint
                 // This avoids CORS issues since the browser will handle the redirect
-                const verificationUrl = `${import.meta.env.VITE_API_URL}/api/users/verify-email?token=${token}`;
+                const verificationUrl = `${API_URL}/api/users/verify-email?token=${token}`;
                 
                 console.log('Redirecting to backend verification:', verificationUrl);
                 

@@ -21,7 +21,7 @@ const SupportAndHelp = ({ showOnlyFaq = false, onTabChange }) => {
     const navigate = useNavigate();
     const [reports, setReports] = useState([]);
     const [activeTab, setActiveTab] = useState(showOnlyFaq ? 'faq' : 'faq');
-    const API_URL = import.meta.env.VITE_API_URL;
+    const API_URL = import.meta.env.VITE_API_URL || 'https://chasenorthbackend-production.up.railway.app';
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [showContactForm, setShowContactForm] = useState(false);

@@ -54,7 +54,7 @@ const BugReport = () => {
     setPreviewUrls(newPreviews);
   };
 
-  const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:9000';
+  const API_URL = import.meta.env.VITE_API_URL || 'https://chasenorthbackend-production.up.railway.app';
 
   const onSubmit = async (data) => {
     setIsSubmitting(true);

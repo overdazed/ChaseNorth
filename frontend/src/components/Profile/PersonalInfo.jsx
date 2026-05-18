@@ -7,7 +7,7 @@ import { IoMailOutline } from "react-icons/io5";
 import { AiOutlineUser } from "react-icons/ai";
 import { countries } from '../../data/countries.jsx';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:9000';
+const API_URL = import.meta.env.VITE_API_URL || 'https://chasenorthbackend-production.up.railway.app';
 
 // Custom scrollbar styles
 const scrollbarStyles = `

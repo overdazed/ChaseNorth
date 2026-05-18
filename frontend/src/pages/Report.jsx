@@ -21,7 +21,7 @@ const desiredOutcomes = [
   'Just reporting the issue'
 ];
 
-const API_URL = import.meta.env.VITE_API_URL
+const API_URL = import.meta.env.VITE_API_URL || 'https://chasenorthbackend-production.up.railway.app'
 
 const Report = () => {
   const location = useLocation();

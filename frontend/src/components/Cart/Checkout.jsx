@@ -117,6 +117,27 @@ const Checkout = () => {
             }
         });
 
+        // Address must include street number
+        if (shippingAddress.address?.trim() && !/\d/.test(shippingAddress.address)) {
+            errors.address = "Address must include a street number";
+            isValid = false;
+        }
+
+        // Letter-only validation for names and city
+        const letterOnlyFields = {
+            firstName: "First name must contain only letters",
+            lastName: "Last name must contain only letters",
+            city: "City must contain only letters, spaces, /, (, )"
+        };
+
+        Object.keys(letterOnlyFields).forEach(field => {
+            const value = shippingAddress[field]?.trim();
+            if (value && !/^[A-Za-z\s\/()]+$/.test(value)) {
+                errors[field] = letterOnlyFields[field];
+                isValid = false;
+            }
+        });
+
         // Additional validation for phone number
         if (shippingAddress.phone) {
             const userCountry = shippingAddress.country.trim().toLowerCase();
@@ -463,7 +484,7 @@ const Checkout = () => {
 
 // Add this handler for the discount code input
     const handleDiscountCodeChange = (e) => {
-        const value = e.target.value;
+        const value = e.target.value.toUpperCase();
         setDiscountCode(value);
         if (discountApplied) {
             setDiscountApplied(false);
@@ -628,12 +649,18 @@ const Checkout = () => {
                             name="address"
                             value={shippingAddress.address}
                             // value="Sdfg 23"
-                            onChange={(e) =>
+                            onChange={(e) => {
                                 setShippingAddress({
                                     ...shippingAddress,
                                     address: capitalizeFirstLetter(e.target.value)
-                                })
-                            }
+                                });
+                                if (formErrors.address) {
+                                    setFormErrors(prev => ({
+                                        ...prev,
+                                        address: undefined
+                                    }));
+                                }
+                            }}
                             className={`w-full p-2 border rounded dark:bg-neutral-700 dark:border-neutral-700 dark:text-white focus:outline-none focus:ring-1 focus:ring-neutral-500 focus:border-transparent ${
                                 isFormSubmitted ? 'bg-neutral-100 dark:bg-neutral-600' : ''
                             }`}
@@ -642,6 +669,9 @@ const Checkout = () => {
                             title="Address must include a street name followed by a space and number"
                             disabled={isFormSubmitted}
                         />
+                        {formErrors.address && (
+                            <p className="text-red-500 text-xs mt-1 dark:text-red-400">{formErrors.address}</p>
+                        )}
                     </div>
                     <div className="mb-4 grid grid-cols-2 gap-4">
                         <div>
@@ -651,20 +681,29 @@ const Checkout = () => {
                                 name="city"
                                 value={shippingAddress.city}
                                 // value="New York"
-                                onChange={(e) =>
+                                onChange={(e) => {
                                     setShippingAddress({
                                         ...shippingAddress,
                                         city: capitalizeFirstLetter(e.target.value)
-                                    })
-                                }
+                                    });
+                                    if (formErrors.city) {
+                                        setFormErrors(prev => ({
+                                            ...prev,
+                                            city: undefined
+                                        }));
+                                    }
+                                }}
                                 className={`w-full p-2 border rounded dark:bg-neutral-700 dark:border-neutral-700 dark:text-white focus:outline-none focus:ring-1 focus:ring-neutral-500 focus:border-transparent ${
                                     isFormSubmitted ? 'bg-neutral-100 dark:bg-neutral-600' : ''
                                 }`}
                                 required
-                                pattern="^[A-Za-z\s]+$" // only allows letters
-                                title="City name must contain only letters"
+                                pattern="^[A-Za-z\s\/()]+$" // allows letters, spaces, /, (, )
+                                title="City name must contain only letters, spaces, /, (, )"
                                 disabled={isFormSubmitted}
                             />
+                            {formErrors.city && (
+                                <p className="text-red-500 text-xs mt-1 dark:text-red-400">{formErrors.city}</p>
+                            )}
                         </div>
                         <div>
                             <label className="block text-neutral-700 dark:text-neutral-300">Postal Code</label>
@@ -965,8 +1004,8 @@ const Checkout = () => {
                         <button
                             type="button"
                             onClick={(e) => {
-                                setIsFormSubmitted(true);
                                 if (validateForm()) {
+                                    setIsFormSubmitted(true);
                                     handleCreateCheckout(e);
                                 }
                             }}
@@ -983,6 +1022,7 @@ const Checkout = () => {
                                     (discountApplied ? discountedPrice : cart.totalPrice) +
                                     (discountApplied && discountCode.trim().toUpperCase() === import.meta.env.VITE_DISCOUNT_CODE4 ? 0 : shippingCost)
                                 ).toFixed(2)}
+                                shippingAddress={shippingAddress}
                                 onSuccess={handlePaymentSuccess}
                                 onError={(err) => {
                                     setIsFormSubmitted(true);

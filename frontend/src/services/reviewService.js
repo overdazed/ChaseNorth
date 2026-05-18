@@ -2,7 +2,7 @@ import axios from 'axios';
 import { supabase } from '@/lib/supabase';
 
 // Base URL for the API
-const API_URL = import.meta.env.VITE_API_URL || 'https://api.chasenorth.com';
+const API_URL = import.meta.env.VITE_API_URL || 'https://chasenorthbackend-production.up.railway.app';
 
 // Get auth config with token
 const getConfig = () => {

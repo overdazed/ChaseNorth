@@ -4,7 +4,14 @@ import { CanvasRevealEffect } from "@/components/ui/CanvasRevealEffect";
 import { Link } from "react-router-dom";
 import { getColorHex } from "@/utils/colorUtils";
 
-const API_BASE = import.meta.env.VITE_API_BASE;
+const normalizeApiBase = (value) => {
+  if (!value) return 'https://chasenorthbackend-production.up.railway.app';
+  return value.startsWith('http://') || value.startsWith('https://')
+    ? value.replace(/\/$/, '')
+    : `https://${value.replace(/\/$/, '')}`;
+};
+
+const API_BASE = normalizeApiBase(import.meta.env.VITE_API_BASE);
 
 // ================== Helper functions ==================
 const isNighttime = () => {

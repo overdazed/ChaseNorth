@@ -8,7 +8,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { updateWishlistCount } from '../../redux/slices/productsSlice';
 import { getColorHex } from '../../utils/colorUtils';
 
-const API_BASE = import.meta.env.VITE_API_BASE;
+const normalizeApiBase = (value) => {
+  if (!value) return 'https://chasenorthbackend-production.up.railway.app';
+  return value.startsWith('http://') || value.startsWith('https://')
+    ? value.replace(/\/$/, '')
+    : `https://${value.replace(/\/$/, '')}`;
+};
+
+const API_BASE = normalizeApiBase(import.meta.env.VITE_API_BASE);
 
 // Function to transform product data to match the component's expected format
 const transformProducts = (products) => {

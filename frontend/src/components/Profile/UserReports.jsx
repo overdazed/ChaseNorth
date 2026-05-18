@@ -9,7 +9,7 @@ const UserReports = () => {
     const [reports, setReports] = useState([]);
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
-    const API_URL = import.meta.env.VITE_API_URL;
+    const API_URL = import.meta.env.VITE_API_URL || 'https://chasenorthbackend-production.up.railway.app';
 
     useEffect(() => {
         const fetchUserReports = async () => {

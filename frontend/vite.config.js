@@ -53,7 +53,7 @@ export default defineConfig(({ command, mode }) => {
       proxy: {
         // This will proxy all API requests to your backend
         '/api': {
-          target: env.VITE_API_URL || 'https://api.chasenorth.com',
+          target: env.VITE_API_URL || 'https://chasenorthbackend-production.up.railway.app',
           changeOrigin: true,
           rewrite: (path) => path.replace(/^\/api/, ''),
           secure: false,

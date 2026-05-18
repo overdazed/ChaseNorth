@@ -13,7 +13,7 @@ const OrderDetailsPage = () => {
     // this will provide the order id that we pass in the url
     const { id } = useParams();
     const navigate = useNavigate();
-    const API_URL = import.meta.env.VITE_API_URL;
+    const API_URL = import.meta.env.VITE_API_URL || 'https://chasenorthbackend-production.up.railway.app';
 
     // declare a state variable to store the order details
     // const [orderDetails, setOrderDetails] = useState(null);
