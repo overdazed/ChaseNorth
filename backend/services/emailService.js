@@ -132,7 +132,7 @@ const sendEmailVerification = async (email, verificationLink) => {
         const emailOptions = {
             from: `"ChaseNorth Support" <${process.env.SYSTEM_EMAIL}>`,
             to: email,
-            subject: 'Verify Your New Email Address',
+            subject: 'Verify Your Email Address',
             html: html,
             text: `Please verify your new email address by clicking the following link: ${verificationLink}`
         };

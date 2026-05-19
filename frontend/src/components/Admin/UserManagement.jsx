@@ -71,7 +71,7 @@ const UserManagement = () => {
         <div className="w-full">
             <h2 className="text-2xl font-bold mb-6">User Management</h2>
 
-            {loading && <p className={theme === 'dark' ? 'text-neutral-300' : 'text-neutral-700'}>Loading...</p>}
+            {/* {loading && <p className={theme === 'dark' ? 'text-neutral-300' : 'text-neutral-700'}>Loading...</p>} */}
             {error && <p className="text-red-500">{error}</p>}
 
             <div className={cardClasses}>

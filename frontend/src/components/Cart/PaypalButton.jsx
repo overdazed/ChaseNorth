@@ -1,6 +1,10 @@
-import { PayPalButtons } from "@paypal/react-paypal-js";
+import { PayPalButtons, usePayPalScriptReducer } from "@paypal/react-paypal-js";
 
 const PaypalButton = ({ amount, shippingAddress, onSuccess, onError }) => {
+    const [{ isPending }] = usePayPalScriptReducer();
+    if (isPending) {
+        return <div className="text-center py-4">Loading PayPal...</div>;
+    }
     return (
         <PayPalButtons
             style={{ layout: "vertical" }}

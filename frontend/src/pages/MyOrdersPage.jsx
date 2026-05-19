@@ -4,7 +4,39 @@ import { useNavigate } from "react-router-dom"
 import {useDispatch, useSelector} from "react-redux";
 import {fetchUserOrders} from "../redux/slices/orderSlice.js";
 
+// Custom scrollbar styles (same as FilterSidebar)
+const scrollbarStyles = `
+  .filter-scrollbar::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  .filter-scrollbar::-webkit-scrollbar-track {
+    background-color: #f3f4f6; /* bg-neutral-100 */
+    border-radius: 3px;
+  }
+  .filter-scrollbar::-webkit-scrollbar-thumb {
+    background-color: #d1d5db; /* bg-neutral-300 */
+    border-radius: 3px;
+  }
+  .dark .filter-scrollbar::-webkit-scrollbar-track {
+    background-color: #1f2937; /* dark:bg-neutral-800 */
+  }
+  .dark .filter-scrollbar::-webkit-scrollbar-thumb {
+    background-color: #4b5563; /* dark:bg-neutral-600 */
+  }
+`;
+
 const MyOrdersPage = () => {
+    // Inject filter scrollbar styles
+    useEffect(() => {
+        const styleElement = document.createElement('style');
+        styleElement.textContent = scrollbarStyles;
+        document.head.appendChild(styleElement);
+        
+        return () => {
+            document.head.removeChild(styleElement);
+        };
+    }, []);
 
     // state variable to hold the orders
     // const [orders, setOrders] = useState([]);
@@ -102,7 +134,7 @@ const MyOrdersPage = () => {
                                 <thead className={`text-xs uppercase ${textClass} ${innerBgClass} lg:table-header-group hidden lg:block`}>
                                     <tr>
                                         <th className="py-2 px-4 sm:py-3">Image</th>
-                                        <th className="py-2 px-4 sm:py-3">Order ID</th>
+                                         <th className="py-2 px-4 sm:py-3 lg:max-xl:hidden">Order ID</th>
                                         <th className="py-2 px-4 sm:py-3">Created</th>
                                         {/*<th className="py-2 px-4 sm:py-3">Shipping Address</th>*/}
                                         <th className="py-2 px-4 sm:py-3">Items</th>
@@ -117,23 +149,47 @@ const MyOrdersPage = () => {
                                         key={order._id}
                                         onClick={() => handleRowClick(order._id)}
                                         className={`border-b cursor-pointer ${borderClass} block lg:table-row md:pb-4 sm:pb-8`}>
-                                            {/* Order Image */}
-                                            <td className="py-4 px-4 block lg:table-cell pt-4">
-                                                <div className="flex flex-wrap gap-3 sm:gap-4 lg:gap-2">
-                                                    {order.orderItems.map((item, index) => (
-                                                        <img
-                                                            key={index}
-                                                            src={item.image}
-                                                            alt={item.name}
-                                                            className="lg:w-8 lg:h-8 lg:rounded-sm md:w-[calc(20%-0.5rem)] w-[calc(50%-0.5rem)] h-auto object-cover rounded-lg"
-                                                        />
-                                                    ))}
-                                                </div>
-                                            </td>
+                                             {/* Order Image */}
+                                             <td className="py-4 px-4 block lg:table-cell pt-6">
+                                                  {order.orderItems.length === 1 ? (
+                                                      <img
+                                                          src={order.orderItems[0].image}
+                                                          alt={order.orderItems[0].name}
+                                                          className="lg:w-8 lg:h-8 xl:w-10 xl:h-10 lg:rounded-sm md:w-32 md:h-32 w-[calc(50%-0.5rem)] h-auto object-cover rounded-lg mx-auto"
+                                                      />
+                                                  ) : (
+                                                      <>
+                                                          {/* Carousel for md (768-1023) */}
+                                                          <div className="overflow-x-auto snap-x lg:hidden w-[calc(50%-0.5rem)] md:w-full mx-auto filter-scrollbar">
+                                                              <div className="flex gap-2 md:gap-2 w-max pb-2">
+                                                                  {order.orderItems.map((item, index) => (
+                                                                      <img
+                                                                          key={index}
+                                                                          src={item.image}
+                                                                          alt={item.name}
+                                                                          className="h-8 w-8 flex-shrink-0 object-cover rounded-sm snap-center md:w-32 md:h-32"
+                                                                      />
+                                                                  ))}
+                                                              </div>
+                                                          </div>
+                                                          {/* 2x2 grid for lg+ */}
+                                                          <div className="hidden lg:grid grid-cols-2 gap-1 lg:w-8 lg:h-8 xl:w-10 xl:h-10 mx-auto">
+                                                              {order.orderItems.slice(0, 4).map((item, index) => (
+                                                                  <img
+                                                                      key={index}
+                                                                      src={item.image}
+                                                                      alt={item.name}
+                                                                      className="w-full h-full object-cover rounded-sm lg:rounded-[1px]"
+                                                                  />
+                                                              ))}
+                                                          </div>
+                                                      </>
+                                                  )}
+                                             </td>
                                             {/* Order ID */}
-                                            <td
-                                                className={`py-2 px-2 sm:py-4 sm:px-4 ${linkClass} whitespace-nowrap block lg:table-cell lg:text-left`}
-                                            >
+                                             <td
+                                                 className={`py-2 px-2 sm:py-4 sm:px-4 ${linkClass} whitespace-nowrap block lg:table-cell lg:text-left lg:max-xl:hidden`}
+                                             >
                                                 <div className="lg:hidden flex justify-between items-center">
                                                     <span className={`font-semibold text-sm uppercase text-left ${textClass}`}>Order ID</span>
                                                     <span className="text-right">#{order._id}</span>

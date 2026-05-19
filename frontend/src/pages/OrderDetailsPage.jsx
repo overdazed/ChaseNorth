@@ -351,7 +351,9 @@ const OrderDetailsPage = () => {
                                         <br />
                                         {orderDetails.shippingAddress.address}
                                         <br />
-                                        {`${orderDetails.shippingAddress.city}, ${orderDetails.shippingAddress.country}`}
+                                        {`${orderDetails.shippingAddress.postalCode} ${orderDetails.shippingAddress.city}`}
+                                        <br />
+                                        {orderDetails.shippingAddress.country}
                                     </div>
                                 </div>
                             </div>
@@ -417,25 +419,23 @@ const OrderDetailsPage = () => {
                                     </div>
                                 )}
 
-                                <div className="flex justify-between">
-                                    <span>Shipping</span>
-                                    <span>
-                                    {orderDetails.discount?.isFreeShipping ? (
-                                        <span className="text-green-600">Free!</span>
-                                    ) : orderDetails.shippingCost > 0 ? (
-                                        `${orderDetails.shippingCost.toFixed(2)} €`
-                                    ) : orderDetails.shippingAddress?.country ? (
-                                        // If we have a country but no shipping cost, calculate it
-                                        (() => {
-                                            const countryName = orderDetails.shippingAddress.country;
-                                            const shippingCost = getShippingCost(countryName);
-                                            return `${shippingCost.toFixed(2)} €`;
-                                        })()
-                                    ) : (
-                                        'Not available'
-                                    )}
-                                </span>
-                                </div>
+                                 <div className="flex justify-between">
+                                     <span>Shipping</span>
+                                     <span>
+                                     {(() => {
+                                         const subtotal = orderDetails.subtotal ||
+                                             orderDetails.orderItems?.reduce((sum, item) => sum + (item.price * item.quantity), 0) || 0;
+                                         const isFreeShipping = orderDetails.discount?.isFreeShipping || subtotal > 100;
+                                         if (isFreeShipping) return <span className="text-green-600">Free!</span>;
+                                         if (orderDetails.shippingCost > 0) return `${orderDetails.shippingCost.toFixed(2)} €`;
+                                         if (orderDetails.shippingAddress?.country) {
+                                             const shippingCost = getShippingCost(orderDetails.shippingAddress.country);
+                                             return `${shippingCost.toFixed(2)} €`;
+                                         }
+                                         return 'Not available';
+                                     })()}
+                                 </span>
+                                 </div>
 
                                 <div className={`border-t ${borderClass} my-3`}></div>
 
@@ -446,15 +446,16 @@ const OrderDetailsPage = () => {
                                         const subtotal = orderDetails.subtotal ||
                                             orderDetails.orderItems?.reduce((sum, item) => sum + (item.price * item.quantity), 0) || 0;
 
-                                        // Get shipping cost - set to 0 if free shipping is applied
-                                        let shippingCost = 0;
-                                        if (!orderDetails.discount?.isFreeShipping) {
-                                            if (orderDetails.shippingCost > 0) {
-                                                shippingCost = orderDetails.shippingCost;
-                                            } else if (orderDetails.shippingAddress?.country) {
-                                                shippingCost = getShippingCost(orderDetails.shippingAddress.country);
-                                            }
-                                        }
+                                         // Get shipping cost - set to 0 if free shipping is applied (subtotal > 100 or discount)
+                                         const isFreeShipping = orderDetails.discount?.isFreeShipping || subtotal > 100;
+                                         let shippingCost = 0;
+                                         if (!isFreeShipping) {
+                                             if (orderDetails.shippingCost > 0) {
+                                                 shippingCost = orderDetails.shippingCost;
+                                             } else if (orderDetails.shippingAddress?.country) {
+                                                 shippingCost = getShippingCost(orderDetails.shippingAddress.country);
+                                             }
+                                         }
 
                                         // Apply discount if any
                                         const discountAmount = orderDetails.discount?.amount || 0;

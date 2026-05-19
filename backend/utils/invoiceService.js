@@ -29,6 +29,7 @@ class InvoiceService {
         const tempFile = path.join(os.tmpdir(), `invoice_${uuidv4()}.json`);
 
         try {
+
             // Prepare the data to send to Python script
             const data = {
                 order_data: {
@@ -44,7 +45,7 @@ class InvoiceService {
 
             await writeFileAsync(tempFile, JSON.stringify(data), 'utf8');
 
-            // Try different Python executables until one works
+            // TTry different Python executables until one works
             let stdout = '';
             let stderr = '';
             let lastError = null;

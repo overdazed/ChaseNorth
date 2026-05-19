@@ -178,24 +178,23 @@ const OrderConfirmationPage = () => {
                                             </div>
                                         )}
 
-                                        <div className="flex justify-between text-sm text-neutral-600 dark:text-neutral-300">
-                                            <span>Shipping</span>
-                                            <span>
-                                                {checkout.discount?.isFreeShipping ? (
-                                                    <span className="text-green-600">Free!</span>
-                                                ) : checkout.shippingCost > 0 ? (
-                                                    `${checkout.shippingCost.toFixed(2)} €`
-                                                ) : checkout.shippingAddress?.country ? (
-                                                    (() => {
-                                                        const countryName = checkout.shippingAddress.country;
-                                                        const shippingCost = getShippingCost(countryName);
-                                                        return `${shippingCost.toFixed(2)} €`;
-                                                    })()
-                                                ) : (
-                                                    'Not available'
-                                                )}
-                                            </span>
-                                        </div>
+                                         <div className="flex justify-between text-sm text-neutral-600 dark:text-neutral-300">
+                                             <span>Shipping</span>
+                                             <span>
+                                                 {(() => {
+                                                     const subtotal = checkout.subtotal ||
+                                                         checkout.checkoutItems?.reduce((sum, item) => sum + (item.price * item.quantity), 0) || 0;
+                                                     const isFreeShipping = checkout.discount?.isFreeShipping || subtotal > 100;
+                                                     if (isFreeShipping) return <span className="text-green-600">Free!</span>;
+                                                     if (checkout.shippingCost > 0) return `${checkout.shippingCost.toFixed(2)} €`;
+                                                     if (checkout.shippingAddress?.country) {
+                                                         const shippingCost = getShippingCost(checkout.shippingAddress.country);
+                                                         return `${shippingCost.toFixed(2)} €`;
+                                                     }
+                                                     return 'Not available';
+                                                 })()}
+                                             </span>
+                                         </div>
 
                                         <div className="border-t border-neutral-200 dark:border-neutral-600 my-3"></div>
 
@@ -207,9 +206,10 @@ const OrderConfirmationPage = () => {
                                                     const subtotal = checkout.subtotal ||
                                                         checkout.checkoutItems?.reduce((sum, item) => sum + (item.price * item.quantity), 0) || 0;
 
-                                                    // Get shipping cost - set to 0 if free shipping is applied
+                                                    // Get shipping cost - set to 0 if free shipping is applied (subtotal > 100 or discount)
+                                                    const isFreeShipping = checkout.discount?.isFreeShipping || subtotal > 100;
                                                     let shippingCost = 0;
-                                                    if (!checkout.discount?.isFreeShipping) {
+                                                    if (!isFreeShipping) {
                                                         if (checkout.shippingCost > 0) {
                                                             shippingCost = checkout.shippingCost;
                                                         } else if (checkout.shippingAddress?.country) {

@@ -247,7 +247,7 @@ const Navbar = ({ transparent = false }) => {
                 {transparent && (
                     <div className="absolute inset-0 bg-gradient-to-b from-neutral-50/70 to-neutral-50/70 backdrop-blur-sm dark:from-neutral-900/70 dark:to-neutral-900/70"></div>
                 )}
-                <nav className="container mx-auto flex items-center justify-between py-3 px-4 relative z-10">
+                <nav className="container mx-auto flex items-center justify-between py-3 md:pb-4 px-4 relative z-10">
                     {/*<nav className="w-full px-20 md:px-36 lg:px-40 flex items-center justify-between py-4 relative z-10">*/}
 
 

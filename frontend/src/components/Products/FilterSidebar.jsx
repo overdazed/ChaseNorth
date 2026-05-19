@@ -6,8 +6,8 @@ import { colorMap } from '@/utils/colorUtils.js';
 // Custom scrollbar styles
 const scrollbarStyles = `
   .filter-scrollbar::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
+    width: 10px;
+    height: 10px;
   }
   .filter-scrollbar::-webkit-scrollbar-track {
     background-color: #f3f4f6; /* bg-neutral-100 */
