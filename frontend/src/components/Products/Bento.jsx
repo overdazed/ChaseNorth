@@ -32,7 +32,7 @@ const SkeletonOne = ({ onClick }) => {
                 </p>
                 <p className="font-normal text-lg text-white transform -translate-x-full group-hover:translate-x-0 transition-all duration-500 ease-in-out delay-100 max-w-[18em] break-words opacity-0 group-hover:opacity-100">
                     Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
-                    sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et
+                    sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
                 </p>
             </div>
             {/*<div className="absolute top-6 left-5 z-10 space-y-4">*/}
@@ -87,8 +87,7 @@ const SkeletonTwo = ({ onClick }) => {
                 </p>
                 <p className="font-normal text-base text-white transform translate-x-full group-hover:translate-x-0 transition-all duration-500 ease-in-out delay-100 max-w-[16em] break-words opacity-0 group-hover:opacity-100">
                     Perched high above the world, this house offers breathtaking views and a
-                    unique living experience. It&apos;s a place where the sky meets home,
-                    and tranquility is a way of life.
+                    unique living experience.
                 </p>
             </div>
         </div>
@@ -119,7 +118,7 @@ const SkeletonThree = ({ onClick }) => {
                 </p>
                 <p className="font-normal text-base text-white transform -translate-x-full group-hover:translate-x-0 transition-all duration-500 ease-in-out delay-100 max-w-[16em] break-words opacity-0 group-hover:opacity-100">
                     Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
-                    sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et
+                    sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
                 </p>
             </div>
         </div>
@@ -150,8 +149,7 @@ const SkeletonFour = ({ onClick }) => {
                 </p>
                 <p className="font-normal text-base text-white transform translate-x-full group-hover:translate-x-0 transition-all duration-500 ease-in-out delay-100 max-w-[16em] break-words opacity-0 group-hover:opacity-100">
                     Perched high above the world, this house offers breathtaking views and a
-                    unique living experience. It&apos;s a place where the sky meets home,
-                    and tranquility is a way of life.
+                    unique living experience.
                 </p>
             </div>
         </div>
@@ -267,6 +265,7 @@ const Bento = () => {
         target: container,
         offset: ["start start", "end start"]
     });
+
     const yValue = useTransform(scrollYProgress, [0, 1], [0, 30]);
     const opacity = useTransform(scrollYProgress, [0, 0.9], [1, 0]);
     const scale = useTransform(scrollYProgress, [0, 1], [1, 1.05]);

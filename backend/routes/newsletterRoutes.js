@@ -1,22 +1,14 @@
 // In your server.js or routes/newsletter.js
 const express = require('express');
 const router = express.Router();
-const nodemailer = require('nodemailer');
+const { Resend } = require('resend');
 const Subscription = require('../models/Subscription');
 require('dotenv').config();
 const fs = require('fs');
 const path = require('path');
 
-// Email transporter setup (using Gmail as an example)
-const transporter = nodemailer.createTransport({
-    host: process.env.SMTP_HOST,
-    port: process.env.SMTP_PORT,
-    secure: process.env.SMTP_SECURE,
-    auth: {
-        user: process.env.EMAIL_USER, // e.g. newsletter@yourdomain.com
-        pass: process.env.EMAIL_PASS  // mailbox password
-    }
-});
+// Resend client (EU region for GDPR)
+const resend = new Resend(process.env.RESEND_API_KEY, { region: 'eu-west-1' });
 
 // Get a random discount code from environment variables
 function getRandomDiscountCode() {
@@ -62,23 +54,19 @@ router.post('/subscribe', async (req, res) => {
         });
         await subscription.save();
 
-        // Send email
-        const mailOptions = {
-            from: '"ChaseNorth" <compass@chasenorth.com>',
-            to: email,
-            subject: 'Setz deinen Kompass 🧭',
-            html: emailTemplate
-        };
+        // Send email via Resend (non-blocking)
+        try {
+            await resend.emails.send({
+                from: 'ChaseNorth <compass@chasenorth.com>',
+                to: email,
+                subject: 'Setz deinen Kompass 🧭',
+                html: emailTemplate
+            });
+        } catch (emailError) {
+            console.error('Newsletter email failed (subscription saved):', emailError.message);
+        }
 
-        await transporter.sendMail(mailOptions);
-
-        // Here you would typically save the email and code to your database
-        // await saveToDatabase(email, discountCode);
-
-        res.json({
-            success: true,
-            // message: 'Subscription successful'
-        });
+        res.json({ success: true });
 
     } catch (error) {
         console.error('Error processing subscription:', error);

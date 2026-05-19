@@ -54,7 +54,7 @@ const Card = ({ title, icon, children, className = "", isDarkMode, onClick }) =>
     }
   };
 
-  const showHover = isMobile ? isTapped : hovered;
+  const showHover = isMobile || hovered;
   
   return (
       <div
@@ -94,10 +94,10 @@ const Card = ({ title, icon, children, className = "", isDarkMode, onClick }) =>
         </AnimatePresence>
 
         <div className="relative z-20 w-full h-full flex items-center justify-center">
-          <div className={`absolute inset-0 flex items-center justify-center ${isMobile ? (isTapped ? 'opacity-0 -translate-y-4' : 'opacity-100') : 'group-hover/canvas-card:-translate-y-4 group-hover/canvas-card:opacity-0'} transition duration-200`}>
+          <div className={`absolute inset-0 flex items-center justify-center ${isMobile ? 'opacity-0 -translate-y-4' : 'group-hover/canvas-card:-translate-y-4 group-hover/canvas-card:opacity-0'} transition duration-200`}>
             {icon}
           </div>
-          <h2 className={`text-xl ${isMobile ? (isTapped ? 'opacity-100 -translate-y-2' : 'opacity-0') : 'opacity-0 group-hover/canvas-card:opacity-100'} relative z-10 text-white -mt-8 font-bold ${isMobile ? (isTapped ? '-translate-y-2' : '') : 'group-hover/canvas-card:-translate-y-2'} transition duration-200`}>
+          <h2 className={`text-xl ${isMobile ? 'opacity-100 -translate-y-2' : 'opacity-0 group-hover/canvas-card:opacity-100'} relative z-10 text-white -mt-8 font-bold ${isMobile ? '-translate-y-2' : 'group-hover/canvas-card:-translate-y-2'} transition duration-200`}>
             {title}
           </h2>
         </div>
@@ -108,8 +108,8 @@ const Card = ({ title, icon, children, className = "", isDarkMode, onClick }) =>
 // ================== Icons ==================
 const AceternityIcon = ({ isDarkMode }) => {
   const logo = isDarkMode
-      ? "/src/assets/ChaseNorth-white.svg"
-      : "/src/assets/ChaseNorth-black.svg";
+      ? "/ChaseNorth-white.svg"
+      : "/ChaseNorth-black.svg";
 
   return (
       <img
