@@ -1,65 +1,34 @@
 const express = require('express');
-
 const User = require('../models/User');
-
 const jwt = require("jsonwebtoken");
-
 const bcrypt = require('bcryptjs');
-
 const { protect } = require("../middleware/authMiddleware");
-
 const authController = require("../controllers/authController");
-
-
 
 const router = express.Router();
 
-
-
 // @route POST /api/users/register
-
 // @desc Register a user
-
 // @access Public
 
-
-
 // call the router.post method, we will not be specifying the API/users here, we will do it later in the server.js file
-
 router.post('/register', async (req, res) => {
-
     // extract the name, email and password from the request body
-
     const { name, email, password } = req.body;
-
     try {
-
         // Registration logic
-
         // Test this route by displaying all the values
-
         // res.send({ name, email, password })
-
         // check if a user with the provided email address already exists (case-insensitive)
-
         const emailLower = email.toLowerCase();
-
         let user = await User.findOne({ email: { $regex: new RegExp(`^${emailLower}$`, 'i') } });
 
-
-
         if (user)
-
             // if the user already exists, return a 400 status code
-
             return res.status(400).json({message: "User already exists"});
-
         // if the user does not exist, create a new user instance with the provided details
-
         user = new User({ name, email: emailLower, password });
-
         // save the user to the database
-
         await user.save();
 
 
@@ -434,240 +403,121 @@ router.put('/update-email', protect, async (req, res) => {
 
         });
 
-
-
         if (existingUser) {
-
             return res.status(400).json({ message: 'Email is already in use' });
-
         }
-
-
 
         // Update email (lowercase for consistency)
-
         user.email = newEmail.toLowerCase();
-
         user.emailVerified = false; // Require email verification
-
         await user.save();
 
-
-
         // Generate verification token
-
         const verificationToken = jwt.sign(
-
             { userId: user._id, newEmail: user.email },
-
             process.env.JWT_SECRET,
-
             { expiresIn: '1d' }
-
         );
-
-
 
         // Create verification link
-
         const verificationLink = `${process.env.FRONTEND_URL}/verify-email?token=${verificationToken}`;
 
-
-
         // Send verification email
-
         const { sendEmailVerification } = require('../services/emailService');
-
         await sendEmailVerification(user.email, verificationLink);
 
-
-
         // Generate new token with updated email
-
         const payload = {
-
             user: {
-
                 id: user._id,
-
                 role: user.role
-
             }
-
         };
 
-
-
         jwt.sign(
-
             payload,
-
             process.env.JWT_SECRET,
-
             { expiresIn: '7d' },
-
             (err, token) => {
-
                 if (err) throw err;
-
                 res.json({ 
-
                     token,
-
                     user: {
-
                         id: user._id,
-
                         name: user.name,
-
                         email: user.email,
-
                         role: user.role,
-
                         emailVerified: user.emailVerified
-
                     },
-
                     message: 'Email updated successfully. Please verify your new email.'
-
                 });
-
             }
-
         );
-
     } catch (error) {
-
         console.error('Error updating email:', error);
-
         res.status(500).json({ message: 'Server error' });
-
     }
-
 });
-
-
 
 // @route   GET /api/users/verify-email
-
 // @desc    Verify user's email after change
-
 // @access  Public
-
 router.get('/verify-email', async (req, res) => {
-
     // Set CORS headers for this specific endpoint
-
     res.header('Access-Control-Allow-Origin', 'http://localhost:5173');
-
     res.header('Access-Control-Allow-Methods', 'GET');
-
     res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-
     res.header('Access-Control-Allow-Credentials', 'true');
-
     try {
-
         const { token } = req.query;
 
-        
-
         if (!token) {
-
             return res.status(400).json({ message: 'Verification token is required' });
-
         }
-
-
 
         // Verify the token
-
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-        
-
         // Find the user
-
         const user = await User.findById(decoded.userId);
-
         if (!user) {
-
             return res.status(404).json({ message: 'User not found' });
-
         }
-
-
 
         // Check if the email in token matches current user email
-
         if (user.email !== decoded.newEmail) {
-
             return res.status(400).json({ message: 'Email verification token is invalid or expired' });
-
         }
-
-
 
         // Mark email as verified
-
         user.emailVerified = true;
-
         const savedUser = await user.save();
 
-        
-
         console.log('User after verification:', {
-
             userId: savedUser._id,
-
             email: savedUser.email,
-
             emailVerified: savedUser.emailVerified
-
         });
 
-
-
         // Redirect to profile page after successful verification
-
         res.redirect(`${process.env.FRONTEND_URL}/profile?emailVerified=true`);
 
-        
-
     } catch (error) {
-
         console.error('Error verifying email:', error);
 
-        
-
         // Handle token expiration specifically
-
         if (error.name === 'TokenExpiredError') {
-
             console.log('Token expired error');
-
             return res.redirect(`${process.env.FRONTEND_URL}/profile?emailError=expired`);
-
         }
 
-        
-
         // Handle other errors
-
         console.log('Invalid token error:', error.message);
-
         res.redirect(`${process.env.FRONTEND_URL}/profile?emailError=invalid`);
-
     }
-
 });
-
-
 
 module.exports = router;
 
-
-
 // open server.js file
-
 // declare the variable userRoutes

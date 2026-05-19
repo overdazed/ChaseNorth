@@ -108,11 +108,9 @@ const Profile = () => {
                             </h1>
                         </div>
                         <div className="flex items-center gap-2">
-                            <p className="text-base md:text-sm lg:text-lg text-neutral-600 dark:text-neutral-500">{user?.email}</p>
+                            <p className="text-sm md:text-sm lg:text-lg text-neutral-600 dark:text-neutral-500">{user?.email}</p>
                             {!user?.emailVerified && (
-                                <span className="text-xs px-2 py-0.5 rounded-full bg-yellow-100 text-yellow-800">
-                                    Unverified
-                                </span>
+                                <span className="w-2.5 h-2.5 rounded-full bg-yellow-500" title="Email unverified" />
                             )}
                         </div>
                             <button
