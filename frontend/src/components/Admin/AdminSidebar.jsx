@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom"
 import { useDispatch } from "react-redux";
 import { logout } from "../../redux/slices/authSlice.js";
 import { clearCart } from "../../redux/slices/cartSlice.js";
+import ChaseNorthLogo from "../../assets/ChaseNorth-white.svg";
 
 const AdminSidebar = () => {
     const navigate = useNavigate()
@@ -19,9 +20,9 @@ const AdminSidebar = () => {
 
     return (
         <div className="p-6 bg-neutral-950 h-full min-h-screen md:min-h-0">
-            <div className="mb-6">
-                <Link to="/admin" className="text-2xl font-medium text-white">
-                    ChaseNorth
+            <div className="mb-6 flex justify-center">
+                <Link to="/admin">
+                    <img src={ChaseNorthLogo} alt="ChaseNorth Logo" className="h-12" />
                 </Link>
             </div>
 
