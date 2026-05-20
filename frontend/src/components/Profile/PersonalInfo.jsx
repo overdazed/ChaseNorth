@@ -287,6 +287,29 @@ const PersonalInfo = () => {
     setEmailError('');
   };
 
+  const handleResendVerification = async () => {
+    try {
+      const token = localStorage.getItem('userToken');
+      const response = await fetch(`${API_URL}/api/users/resend-verification`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        }
+      });
+
+      const data = await response.json();
+      if (response.ok) {
+        alert(data.message || 'Verification email sent! Check your inbox.');
+      } else {
+        alert(data.message || 'Failed to resend verification email.');
+      }
+    } catch (error) {
+      console.error('Resend verification error:', error);
+      alert('Failed to resend verification email. Please try again.');
+    }
+  };
+
   const handleUpdateEmail = async (e) => {
     e.preventDefault();
     
@@ -844,9 +867,17 @@ const PersonalInfo = () => {
                             Verified
                           </span>
                         ) : (
-                          <span className="text-xs px-2 py-0.5 rounded-full bg-yellow-100 text-yellow-800">
-                            Unverified
-                          </span>
+                          <>
+                            <span className="text-xs px-2 py-0.5 rounded-full bg-yellow-100 text-yellow-800">
+                              Unverified
+                            </span>
+                            <button
+                              onClick={handleResendVerification}
+                              className="text-xs text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 font-medium ml-2"
+                            >
+                              Resend verification email
+                            </button>
+                          </>
                         )}
                       </div>
                       <button
