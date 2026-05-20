@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import styled from 'styled-components';
+import { useState, useEffect } from "react";
 
 const StyledButton = styled(Link)`
   z-index: 2;
@@ -10,13 +11,13 @@ const StyledButton = styled(Link)`
   outline: none;
   border: none;
   background-color: inherit;
-    font-family: "Inter", sans-serif;
+    font-family: "BDOGrotesk", sans-serif;
   font-size: 18px;
-  font-weight: bold;
+  font-weight: normal;
   padding: 8px 16px;
   
   @media (min-width: 768px) {
-    font-size: 24px;
+    font-size: 22px;
     padding: 10px 20px;
   }
   position: relative;
@@ -24,7 +25,7 @@ const StyledButton = styled(Link)`
   text-decoration: none;
   color: #cbd5e1; /* text-slate-300 */
   text-align: center;
-  margin: 0 auto;
+  margin: 0;
 
   &::before {
     content: "";
@@ -35,7 +36,7 @@ const StyledButton = styled(Link)`
     position: absolute;
     top: 0%;
     left: 0%;
-    transform: scaleX(0.2) scaleY(0.5) translate(250%, 100%);
+    transform: scaleX(0.15) scaleY(0.4) translate(340%, 100%);
     border-top: solid 2px #cbd5e1;
     border-left: solid 4px #cbd5e1;
     transition: all .4s ease-in-out;
@@ -50,7 +51,7 @@ const StyledButton = styled(Link)`
     position: absolute;
     top: 0;
     left: 0;
-    transform: translate(-50%, -50%) scaleX(0.2) scaleY(0.5);
+    transform: translate(-50%, -50%) scaleX(0.15) scaleY(0.4);
     border-bottom: solid 2px #cbd5e1;
     border-right: solid 4px #cbd5e1;
     transition: all .4s ease-in-out;
@@ -70,6 +71,12 @@ const StyledButton = styled(Link)`
 `;
 
 export function HeroSection() {
+    const [ready, setReady] = useState(false);
+    useEffect(() => {
+        const timer = setTimeout(() => setReady(true), 6500);
+        return () => clearTimeout(timer);
+    }, []);
+
     const heading = "Discover the perfect fit for your next outdoor journey";
     const subheading = "High-quality clothing for ethical adventurers, made to explore.";
     // const descriptions = [
@@ -79,33 +86,38 @@ export function HeroSection() {
 
     return (
         <div className="relative flex h-[105vh] md:h-[95vh] w-full items-center justify-center px-4">
-            <div className="w-full max-w-[2000px]">
-                <h1 className="relative z-10 mx-auto max-w-6xl text-center text-4xl font-bold md:text-4xl lg:text-6xl text-slate-300">
+            <div className="container mx-auto max-w-[1800px] px-4 flex">
+              <div className="hidden md:block w-[8%]" />
+              <div className="w-full md:w-[92%]">
+                <h1 className="relative z-10 text-left text-4xl font-normal md:text-2xl lg:text-4xl text-slate-300">
                     {heading.split(" ").map((word, index) => (
+                        <>
                         <motion.span
                             key={index}
                             initial={{ opacity: 0, filter: "blur(4px)", y: 10 }}
-                            animate={{ opacity: 1, filter: "blur(0px)", y: 0 }}
+                            animate={ready ? { opacity: 1, filter: "blur(0px)", y: 0 } : { opacity: 0, filter: "blur(4px)", y: 10 }}
                             transition={{
                                 duration: 0.3,
-                                delay: index * 0.175,
+                                delay: ready ? index * 0.175 : 10,
                                 ease: "easeInOut",
                             }}
                             className="mr-2 inline-block"
                         >
                             {word}
                         </motion.span>
+                        {(index + 1) % 3 === 0 && <br />}
+                        </>
                     ))}
                 </h1>
 
-                <motion.p
+                {/* <motion.p
                     initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 0.3, delay: 0.5 }}
-                    className="relative z-10 mx-auto max-w-2xl py-4 text-center md:text-lg lg:text-2xl font-normal text-neutral-400"
+                    animate={ready ? { opacity: 1 } : { opacity: 0 }}
+                    transition={{ duration: 0.3, delay: ready ? 2.0 : 10 }}
+                    className="relative z-10 py-4 text-left md:text-lg lg:text-2xl font-normal text-neutral-400"
                 >
                     {subheading}
-                </motion.p>
+                </motion.p> */}
 
                 {/*<div className="mt-6 space-y-4">*/}
                 {/*    {descriptions.map((desc, index) => (*/}
@@ -126,14 +138,15 @@ export function HeroSection() {
 
                 <motion.div
                     initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 0.3, delay: 1.2 }}
-                    className="relative z-10 mt-10"
+                    animate={ready ? { opacity: 1 } : { opacity: 0 }}
+                    transition={{ duration: 0.3, delay: ready ? 2.0 : 10 }}
+                    className="relative z-10 mt-10 flex justify-start"
                 >
                     <StyledButton to="/collections/all">
                         Shop Now
                     </StyledButton>
                 </motion.div>
+              </div>
             </div>
         </div>
     );
