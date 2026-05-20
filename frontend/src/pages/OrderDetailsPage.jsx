@@ -423,7 +423,7 @@ const OrderDetailsPage = () => {
                                      <span>Shipping</span>
                                      <span>
                                      {(() => {
-                                         const subtotal = orderDetails.subtotal ||
+                                          const subtotal = orderDetails.subtotal ||
                                              orderDetails.orderItems?.reduce((sum, item) => sum + (item.price * item.quantity), 0) || 0;
                                          const isFreeShipping = orderDetails.discount?.isFreeShipping || subtotal > 100;
                                          if (isFreeShipping) return <span className="text-green-600">Free!</span>;
@@ -446,7 +446,7 @@ const OrderDetailsPage = () => {
                                         const subtotal = orderDetails.subtotal ||
                                             orderDetails.orderItems?.reduce((sum, item) => sum + (item.price * item.quantity), 0) || 0;
 
-                                         // Get shipping cost - set to 0 if free shipping is applied (subtotal > 100 or discount)
+                                          // Get shipping cost - set to 0 if free shipping is applied (subtotal > 100 or discount)
                                          const isFreeShipping = orderDetails.discount?.isFreeShipping || subtotal > 100;
                                          let shippingCost = 0;
                                          if (!isFreeShipping) {

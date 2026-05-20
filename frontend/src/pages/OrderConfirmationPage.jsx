@@ -182,7 +182,7 @@ const OrderConfirmationPage = () => {
                                              <span>Shipping</span>
                                              <span>
                                                  {(() => {
-                                                     const subtotal = checkout.subtotal ||
+                                                      const subtotal = checkout.subtotal ||
                                                          checkout.checkoutItems?.reduce((sum, item) => sum + (item.price * item.quantity), 0) || 0;
                                                      const isFreeShipping = checkout.discount?.isFreeShipping || subtotal > 100;
                                                      if (isFreeShipping) return <span className="text-green-600">Free!</span>;
@@ -206,7 +206,7 @@ const OrderConfirmationPage = () => {
                                                     const subtotal = checkout.subtotal ||
                                                         checkout.checkoutItems?.reduce((sum, item) => sum + (item.price * item.quantity), 0) || 0;
 
-                                                    // Get shipping cost - set to 0 if free shipping is applied (subtotal > 100 or discount)
+                                                     // Get shipping cost - set to 0 if free shipping is applied (subtotal > 100 or discount)
                                                     const isFreeShipping = checkout.discount?.isFreeShipping || subtotal > 100;
                                                     let shippingCost = 0;
                                                     if (!isFreeShipping) {

@@ -2,6 +2,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {useNavigate, useOutletContext} from "react-router-dom";
 import {useEffect} from "react";
 import {fetchAllOrders, updateOrderStatus} from "../../redux/slices/adminOrderSlice.js";
+import axios from "axios";
 
 const OrderManagement = () => {
 
@@ -54,6 +55,31 @@ const OrderManagement = () => {
         }
     };
 
+    const handleDownloadInvoice = async (orderId, e) => {
+        e.stopPropagation();
+        try {
+            const response = await axios.get(
+                `${import.meta.env.VITE_BACKEND_URL}/api/invoices/download/${orderId}`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem("userToken")}`
+                    },
+                    responseType: 'blob'
+                }
+            );
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', `invoice-${orderId}.pdf`);
+            document.body.appendChild(link);
+            link.click();
+            link.remove();
+        } catch (error) {
+            console.error("Failed to download invoice:", error);
+            alert("Invoice not available or error downloading.");
+        }
+    };
+
     // if (loading) return <div>Loading...</div>;
     if (error) return <div>Error: {error}</div>;
 
@@ -79,9 +105,13 @@ const OrderManagement = () => {
                                     key={order._id}
                                     className="group border-b border-neutral-200 dark:border-neutral-800 hover:bg-neutral-200 hover:dark:bg-accent cursor-pointer"
                                 >
-                                    <td className="p-4 font-medium text-neutral-900 hover:dark:text-neutral-200 whitespace-nowrap dark:text-neutral-300">
-                                        #{order._id}
-                                    </td>
+                                      <td 
+                                          className="p-4 font-medium text-neutral-900 hover:dark:text-neutral-200 whitespace-nowrap dark:text-neutral-300 hover:underline cursor-pointer"
+                                          onClick={(e) => handleDownloadInvoice(order._id, e)}
+                                          title={`Order ID: ${order._id}`}
+                                      >
+                                          {order.invoiceNumber || `#${order._id}`}
+                                      </td>
                                     <td className="p-4 text-neutral-900 hover:dark:text-neutral-200 whitespace-nowrap dark:text-neutral-300">{order.user?.name}</td>
                                     <td className="p-4 text-neutral-900 hover:dark:text-neutral-200 whitespace-nowrap dark:text-neutral-300">{order.totalPrice.toFixed(2)} €</td>
                                     <td className="p-4 text-neutral-900 hover:dark:text-neutral-200 whitespace-nowrap dark:text-neutral-300">
