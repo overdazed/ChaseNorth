@@ -3,13 +3,45 @@ import { useParams, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import { resetPassword } from '../redux/slices/authSlice';
+import {FaEye, FaEyeSlash} from "react-icons/fa6";
 
 const ResetPassword = () => {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const [message, setMessage] = useState('');
     const [error, setError] = useState('');
     const [isLoading, setIsLoading] = useState(false);
+
+    const [passwordErrors, setPasswordErrors] = useState({
+        minLength: false,
+        hasUppercase: false,
+        hasLowercase: false,
+        hasNumber: false,
+        hasSpecialChar: false
+    });
+
+    const validatePassword = (pass) => {
+        const newErrors = {
+            minLength: pass.length >= 12,
+            hasUppercase: /[A-Z]/.test(pass),
+            hasLowercase: /[a-z]/.test(pass),
+            hasNumber: /\d/.test(pass),
+            hasSpecialChar: /[!@#$%^&*(),.?":{}|<>]/.test(pass)
+        };
+        setPasswordErrors(newErrors);
+        return Object.values(newErrors).every(Boolean);
+    };
+
+    const handlePasswordChange = (e) => {
+        const newPassword = e.target.value;
+        setPassword(newPassword);
+        validatePassword(newPassword);
+    };
+
+    const isPasswordValid = Object.values(passwordErrors).every(Boolean);
+
     const { token } = useParams();
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -20,6 +52,11 @@ const ResetPassword = () => {
 
         if (password !== confirmPassword) {
             setError('Passwords do not match');
+            return;
+        }
+
+        if (!isPasswordValid) {
+            setError('Password does not meet the requirements');
             return;
         }
 
@@ -56,32 +93,112 @@ const ResetPassword = () => {
 
                     <div className="form-group">
                         <label>New Password</label>
-                        <input
-                            type="password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            placeholder="Enter new password"
-                            required
-                            minLength="6"
-                        />
+                        <div style={{ position: 'relative' }}>
+                            <input
+                                type={showPassword ? "text" : "password"}
+                                value={password}
+                                onChange={handlePasswordChange}
+                                placeholder="Enter new password"
+                                required
+                                minLength="12"
+                                className={password && !isPasswordValid ? 'border-red-500' : ''}
+                                style={{ paddingRight: '40px', width: '100%' }}
+                            />
+                            <button 
+                                type="button" 
+                                onClick={() => setShowPassword(!showPassword)}
+                                style={{
+                                    position: 'absolute',
+                                    right: '10px',
+                                    top: '50%',
+                                    transform: 'translateY(-50%)',
+                                    background: 'none',
+                                    border: 'none',
+                                    cursor: 'pointer',
+                                    padding: '0',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center'
+                                }}
+                            >
+                                {showPassword ? (
+                                    <FaEye size={14} className="text-neutral-500 hover:text-black"/>
+                                ) : (
+                                    <FaEyeSlash size={16} className="text-neutral-500 hover:text-black"/>
+                                )}
+                            </button>
+                        </div>
+                        {password && (
+                            <div className="mt-3 mb-4 p-3 bg-neutral-50 rounded-lg dark:bg-neutral-800 text-xs">
+                                <p className="font-medium text-neutral-700 dark:text-neutral-300 mb-1.5">Password must contain:</p>
+                                <ul className="space-y-1">
+                                    <li className={`flex items-center ${passwordErrors.minLength ? 'text-green-600 dark:text-green-400' : 'text-neutral-500 dark:text-neutral-400'}`}>
+                                        <span className="mr-2">{passwordErrors.minLength ? '✓' : '•'}</span>
+                                        At least 12 characters
+                                    </li>
+                                    <li className={`flex items-center ${passwordErrors.hasUppercase ? 'text-green-600 dark:text-green-400' : 'text-neutral-500 dark:text-neutral-400'}`}>
+                                        <span className="mr-2">{passwordErrors.hasUppercase ? '✓' : '•'}</span>
+                                        1 uppercase letter
+                                    </li>
+                                    <li className={`flex items-center ${passwordErrors.hasLowercase ? 'text-green-600 dark:text-green-400' : 'text-neutral-500 dark:text-neutral-400'}`}>
+                                        <span className="mr-2">{passwordErrors.hasLowercase ? '✓' : '•'}</span>
+                                        1 lowercase letter
+                                    </li>
+                                    <li className={`flex items-center ${passwordErrors.hasNumber ? 'text-green-600 dark:text-green-400' : 'text-neutral-500 dark:text-neutral-400'}`}>
+                                        <span className="mr-2">{passwordErrors.hasNumber ? '✓' : '•'}</span>
+                                        1 number
+                                    </li>
+                                    <li className={`flex items-center ${passwordErrors.hasSpecialChar ? 'text-green-600 dark:text-green-400' : 'text-neutral-500 dark:text-neutral-400'}`}>
+                                        <span className="mr-2">{passwordErrors.hasSpecialChar ? '✓' : '•'}</span>
+                                        1 special character
+                                    </li>
+                                </ul>
+                            </div>
+                        )}
                     </div>
 
                     <div className="form-group">
                         <label>Confirm New Password</label>
-                        <input
-                            type="password"
-                            value={confirmPassword}
-                            onChange={(e) => setConfirmPassword(e.target.value)}
-                            placeholder="Confirm new password"
-                            required
-                            minLength="6"
-                        />
+                        <div style={{ position: 'relative' }}>
+                            <input
+                                type={showConfirmPassword ? "text" : "password"}
+                                value={confirmPassword}
+                                onChange={(e) => setConfirmPassword(e.target.value)}
+                                placeholder="Confirm new password"
+                                required
+                                minLength="12"
+                                style={{ paddingRight: '40px', width: '100%' }}
+                            />
+                            <button 
+                                type="button" 
+                                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                                style={{
+                                    position: 'absolute',
+                                    right: '10px',
+                                    top: '50%',
+                                    transform: 'translateY(-50%)',
+                                    background: 'none',
+                                    border: 'none',
+                                    cursor: 'pointer',
+                                    padding: '0',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center'
+                                }}
+                            >
+                                {showConfirmPassword ? (
+                                    <FaEye size={14} className="text-neutral-500 hover:text-black"/>
+                                ) : (
+                                    <FaEyeSlash size={16} className="text-neutral-500 hover:text-black"/>
+                                )}
+                            </button>
+                        </div>
                     </div>
 
                     <button
                         type="submit"
                         className="button-submit"
-                        disabled={isLoading}
+                        disabled={isLoading || !isPasswordValid || password !== confirmPassword}
                     >
                         {isLoading ? 'Resetting...' : 'Reset Password'}
                     </button>
