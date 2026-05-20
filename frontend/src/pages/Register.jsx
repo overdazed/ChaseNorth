@@ -305,7 +305,6 @@ const FormContainer = styled.div`
   width: 100%;
   max-width: 500px;
   padding: 2rem;
-  background: rgba(255, 255, 255, 0.9);
   border-radius: 8px;
   
   @media (min-width: 768px) {
