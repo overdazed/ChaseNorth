@@ -1,5 +1,8 @@
 import { PayPalButtons, usePayPalScriptReducer } from "@paypal/react-paypal-js";
 
+// Normalize currency: DE (country code) should be treated as EUR (currency code)
+const CURRENCY = import.meta.env.VITE_CURRENCY || "EUR";
+
 const PaypalButton = ({ amount, shippingAddress, onSuccess, onError }) => {
     const [{ isPending }] = usePayPalScriptReducer();
     if (isPending) {
@@ -12,7 +15,7 @@ const PaypalButton = ({ amount, shippingAddress, onSuccess, onError }) => {
             createOrder={(data, actions) => {
                 const purchaseUnit = {
                     amount: {
-                        currency_code: "EUR",
+                        currency_code: CURRENCY,
                         value: parseFloat(amount).toFixed(2)
                     }
                 };

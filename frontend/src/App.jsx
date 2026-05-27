@@ -15,6 +15,8 @@ import { BrowserRouter, Route, Routes, useLocation, useNavigationType } from "re
 import { useEffect, useRef } from 'react';
 import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 
+// Normalize currency: DE (country code) should be treated as EUR (currency code)
+const CURRENCY = import.meta.env.VITE_CURRENCY || "EUR";
 
 // This component handles scroll restoration
 const ScrollRestoration = () => {
@@ -247,7 +249,7 @@ const App = () => {
             <PayPalScriptProvider
                 options={{
                     "client-id": import.meta.env.VITE_PAYPAL_CLIENT_ID,
-                    currency: "EUR",
+                    currency: CURRENCY,
                     intent: "capture",
                 }}
             >

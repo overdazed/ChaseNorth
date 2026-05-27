@@ -14,6 +14,7 @@ const normalizeApiBase = (value) => {
 };
 
 const API_BASE = normalizeApiBase(import.meta.env.VITE_API_BASE);
+const CURRENCY = import.meta.env.VITE_CURRENCY || "EUR";
 
 // ================== Helper functions ==================
 const isNighttime = () => {
@@ -324,7 +325,7 @@ const DiscoverWeeklyContent = ({ isDarkMode }) => {
                           <span className="text-lg font-bold text-white">
                         {weeklyProduct.price?.toLocaleString("de-DE", {
                           style: "currency",
-                          currency: "EUR",
+                          currency: CURRENCY,
                           minimumFractionDigits: 0,
                           maximumFractionDigits: 2
                         })}
@@ -389,7 +390,7 @@ const DiscoverWeeklyContent = ({ isDarkMode }) => {
                         <span className="text-lg font-bold text-white">
                       {bestSellingProduct.price?.toLocaleString("de-DE", {
                         style: "currency",
-                        currency: "EUR",
+                        currency: CURRENCY,
                         minimumFractionDigits: 0,
                         maximumFractionDigits: 2
                       })}
@@ -473,7 +474,7 @@ const DiscoverWeeklyContent = ({ isDarkMode }) => {
                         <span className="text-lg font-bold text-white">
                       {mensNewItemProduct.price?.toLocaleString("de-DE", {
                         style: "currency",
-                        currency: "EUR",
+                        currency: CURRENCY,
                         minimumFractionDigits: 0,
                         maximumFractionDigits: 2
                       })}

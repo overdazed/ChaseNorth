@@ -697,8 +697,8 @@ const Checkout = () => {
                                     isFormSubmitted ? 'bg-neutral-100 dark:bg-neutral-600' : ''
                                 }`}
                                 required
-                                pattern="^[A-Za-z\s\/()]+$" // allows letters, spaces, /, (, )
-                                title="City name must contain only letters, spaces, /, (, )"
+ pattern="[A-Za-z\s\(\)]+" // allows letters, spaces, (, )
+                                title="City name must contain only letters, spaces, (, )"
                                 disabled={isFormSubmitted}
                             />
                             {formErrors.city && (
@@ -785,7 +785,7 @@ const Checkout = () => {
                                 formErrors.phone ? 'border-red-500 dark:border-red-700' : ''
                             } ${isFormSubmitted ? 'bg-neutral-100 dark:bg-neutral-600' : ''}`}
                             required
-                            pattern="^\+?[0-9\s\-()]*$"
+                            pattern="\+?[0-9\s\(\)\-]*"
                             title="Enter a valid phone number"
                             disabled={isFormSubmitted}
                         />
