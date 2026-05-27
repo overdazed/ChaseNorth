@@ -23,7 +23,7 @@ const Featured = () => {
             to="/blog/features-that-refuse-to-sit-still"
             className="bg-white text-black dark:bg-black dark:text-white border-2 dark:border-white border-black px-4 py-2 text-sm transition-all duration-300 hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black cursor-pointer w-fit"
           >
-            LEARN MORE
+            LEARN MOREe
           </Link>
         </div>
       </div>
