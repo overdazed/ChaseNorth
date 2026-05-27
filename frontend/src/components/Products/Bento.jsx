@@ -1,10 +1,10 @@
 import React, {useRef, useState} from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { LayoutGrid } from "../ui/layout-grid";
-import mensCollectionImage from "../../assets/man/winter.jpg";
-import womensCollectionImage from "../../assets/woman/winter-2.jpg";
-import topCollectionImage from "../../assets/top/winter.jpg";
-import bottomCollectionImage from "../../assets/bottom/winter-2.jpg";
+import mensCollectionImage from "../../assets/man/summer.jpg";
+import womensCollectionImage from "../../assets/woman/summer.jpg";
+import topCollectionImage from "../../assets/top/summer.jpg";
+import bottomCollectionImage from "../../assets/bottom/summer.jpg";
 import {useNavigate} from "react-router-dom";
 
 
@@ -26,14 +26,14 @@ const SkeletonOne = ({ onClick }) => {
             <div className="absolute inset-0 bg-black bg-opacity-30 md:bg-opacity-0 group-hover:bg-opacity-60 transition-opacity duration-500 z-0"></div>
 
             {/* Content - Always visible on mobile, animated on desktop */}
-            <div className="absolute top-6 md:top-10 md:bottom-10 left-8 sm:left-12 md:left-12 z-10 space-y-2 md:space-y-4">
-                <p className="uppercase font-medium text-white text-xl sm:text-4xl md:text-6xl transform md:-translate-x-full md:group-hover:translate-x-0 transition-all duration-500 ease-in-out md:opacity-0 md:group-hover:opacity-100">
+            <div className="absolute top-6 md:top-10 md:bottom-10 left-1/2 md:left-12 -translate-x-1/2 md:translate-x-0 z-10 space-y-2 md:space-y-4 text-center md:text-left">
+                <p className="uppercase font-medium text-white text-xl sm:text-4xl md:text-4xl transform md:-translate-x-full md:group-hover:translate-x-0 transition-all duration-500 ease-in-out md:opacity-0 md:group-hover:opacity-100">
                     Women
                 </p>
-                <p className="font-normal text-lg text-white transform -translate-x-full group-hover:translate-x-0 transition-all duration-500 ease-in-out delay-100 max-w-[18em] break-words opacity-0 group-hover:opacity-100">
+                {/* <p className="font-normal text-lg text-white transform -translate-x-full group-hover:translate-x-0 transition-all duration-500 ease-in-out delay-100 max-w-[18em] break-words opacity-0 group-hover:opacity-100">
                     Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
                     sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
-                </p>
+                </p> */}
             </div>
             {/*<div className="absolute top-6 left-5 z-10 space-y-4">*/}
             {/*<p className="font-bold md:text-6xl text-xl text-white pl-16">*/}
@@ -81,14 +81,14 @@ const SkeletonTwo = ({ onClick }) => {
             <div className="absolute inset-0 bg-black bg-opacity-30 md:bg-opacity-0 group-hover:bg-opacity-60 transition-opacity duration-500 z-0"></div>
 
             {/* Content - Right Aligned - Always visible on mobile */}
-            <div className="absolute top-6 md:top-10 md:bottom-10 right-8 sm:right-12 md:right-9 z-10 space-y-2 md:space-y-4 text-right">
-                <p className="uppercase font-medium text-white text-xl sm:text-4xl md:text-6xl transform md:translate-x-full md:group-hover:translate-x-0 transition-all duration-500 ease-in-out md:opacity-0 md:group-hover:opacity-100">
+            <div className="absolute top-6 md:top-10 md:bottom-10 right-1/2 md:right-9 translate-x-1/2 md:translate-x-0 z-10 space-y-2 md:space-y-4 text-center md:text-right">
+                <p className="uppercase font-medium text-white text-xl sm:text-4xl md:text-4xl transform md:translate-x-full md:group-hover:translate-x-0 transition-all duration-500 ease-in-out md:opacity-0 md:group-hover:opacity-100">
                     Top
                 </p>
-                <p className="font-normal text-base text-white transform translate-x-full group-hover:translate-x-0 transition-all duration-500 ease-in-out delay-100 max-w-[16em] break-words opacity-0 group-hover:opacity-100">
+                {/* <p className="font-normal text-base text-white transform translate-x-full group-hover:translate-x-0 transition-all duration-500 ease-in-out delay-100 max-w-[16em] break-words opacity-0 group-hover:opacity-100">
                     Perched high above the world, this house offers breathtaking views and a
                     unique living experience.
-                </p>
+                </p> */}
             </div>
         </div>
     );
@@ -112,14 +112,14 @@ const SkeletonThree = ({ onClick }) => {
             <div className="absolute inset-0 bg-black bg-opacity-30 md:bg-opacity-0 group-hover:bg-opacity-60 transition-opacity duration-500 z-0"></div>
 
             {/* Content - Always visible on mobile, animated on desktop */}
-            <div className="absolute top-6 md:top-10 left-8 sm:left-12 md:left-9 z-10 space-y-2 md:space-y-4">
-                <p className="uppercase font-medium text-white text-xl sm:text-4xl md:text-6xl transform md:-translate-x-full md:group-hover:translate-x-0 transition-all duration-500 ease-in-out md:opacity-0 md:group-hover:opacity-100">
+            <div className="absolute top-6 md:top-10 left-1/2 md:left-9 -translate-x-1/2 md:translate-x-0 z-10 space-y-2 md:space-y-4 text-center md:text-left">
+                <p className="uppercase font-medium text-white text-xl sm:text-4xl md:text-4xl transform md:-translate-x-full md:group-hover:translate-x-0 transition-all duration-500 ease-in-out md:opacity-0 md:group-hover:opacity-100">
                     Bottom
                 </p>
-                <p className="font-normal text-base text-white transform -translate-x-full group-hover:translate-x-0 transition-all duration-500 ease-in-out delay-100 max-w-[16em] break-words opacity-0 group-hover:opacity-100">
+                {/* <p className="font-normal text-base text-white transform -translate-x-full group-hover:translate-x-0 transition-all duration-500 ease-in-out delay-100 max-w-[16em] break-words opacity-0 group-hover:opacity-100">
                     Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
                     sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
-                </p>
+                </p> */}
             </div>
         </div>
     );
@@ -143,14 +143,14 @@ const SkeletonFour = ({ onClick }) => {
             <div className="absolute inset-0 bg-black bg-opacity-30 md:bg-opacity-0 group-hover:bg-opacity-60 transition-opacity duration-500 z-0"></div>
 
             {/* Content - Right Aligned - Always visible on mobile */}
-            <div className="absolute top-6 md:top-10 right-8 sm:right-12 md:right-12 z-10 space-y-2 md:space-y-4 text-right">
-                <p className="uppercase font-medium text-white text-xl sm:text-4xl md:text-6xl transform md:translate-x-full md:group-hover:translate-x-0 transition-all duration-500 ease-in-out md:opacity-0 md:group-hover:opacity-100">
+            <div className="absolute top-6 md:top-10 right-1/2 md:right-12 translate-x-1/2 md:translate-x-0 z-10 space-y-2 md:space-y-4 text-center md:text-right">
+                <p className="uppercase font-medium text-white text-xl sm:text-4xl md:text-4xl transform md:translate-x-full md:group-hover:translate-x-0 transition-all duration-500 ease-in-out md:opacity-0 md:group-hover:opacity-100">
                     Men
                 </p>
-                <p className="font-normal text-base text-white transform translate-x-full group-hover:translate-x-0 transition-all duration-500 ease-in-out delay-100 max-w-[16em] break-words opacity-0 group-hover:opacity-100">
+                {/* <p className="font-normal text-base text-white transform translate-x-full group-hover:translate-x-0 transition-all duration-500 ease-in-out delay-100 max-w-[16em] break-words opacity-0 group-hover:opacity-100">
                     Perched high above the world, this house offers breathtaking views and a
                     unique living experience.
-                </p>
+                </p> */}
             </div>
         </div>
     );

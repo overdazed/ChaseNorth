@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import womanHorse from '../../assets/Mountain_bw.jpg'
+import mainPicture from '../../assets/Madeira.jpg';
 
 const Featured = () => {
   return (
@@ -8,8 +8,8 @@ const Featured = () => {
       <div className="max-w-[1550px] mx-auto flex flex-col lg:flex-row lg:justify-between lg:items-center min-h-screen px-6 py-12 lg:py-0">
         <div className="flex-1 h-[400px] lg:h-[800px] mb-8 lg:mb-0 lg:order-2">
           <img
-            src={womanHorse}
-            alt="Woman on horse in countryside"
+            src={mainPicture}
+            alt="Main feature image"
             className="w-full h-full object-cover"
           />
         </div>
