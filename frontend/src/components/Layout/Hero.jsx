@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import heroVideo from '../../assets/Blinking.mp4';
+import heroVideo from '../../assets/Blinking_1440.mp4';
 import { HeroSection } from "@/components/Layout/HeroSection";
 
 const Hero = () => {

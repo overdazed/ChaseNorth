@@ -73,7 +73,7 @@ const StyledButton = styled(Link)`
 export function HeroSection() {
     const [ready, setReady] = useState(false);
     useEffect(() => {
-        const timer = setTimeout(() => setReady(true), 6500);
+        const timer = setTimeout(() => setReady(true), 3500);
         return () => clearTimeout(timer);
     }, []);
 

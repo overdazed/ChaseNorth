@@ -134,14 +134,14 @@
   font-display: swap;
 }
 
-h1 {
+h1, h3, h4 {
   font-family: "BDOGrotesk", sans-serif;
   font-optical-sizing: auto;
   font-style: normal;
   font-weight: 500;
 }
 
-h2, h3, h4, h5, h6 {
+h2, h5, h6 {
   font-family: "BDOGrotesk", sans-serif;
   font-optical-sizing: auto;
   font-style: normal;
@@ -162,7 +162,6 @@ p {
 .scrollbar-hide::-webkit-scrollbar {
   display: none; /* Safari and Chrome */
 }
-
 
   /* Hide number input spinners */
 input[type="number"]::-webkit-outer-spin-button,

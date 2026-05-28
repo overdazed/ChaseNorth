@@ -100,7 +100,7 @@ const Newsletter = () => {
                         <button
                             type="submit"
                             disabled={isSubmitting}
-                            className={`w-full bg-black text-white px-6 py-3 text-sm rounded-full
+                            className={`w-full bg-accent text-white px-6 py-3 text-sm rounded-full
                             hover:bg-neutral-800 dark:hover:bg-neutral-900 mb-4 transition-colors duration-200
                             ${isSubmitting ? 'opacity-70 cursor-not-allowed' : ''}`}
                         >

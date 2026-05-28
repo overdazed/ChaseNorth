@@ -24,7 +24,7 @@ const WebDevPromotion = () => {
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <button
-                    onClick={() => (window.location.href = "mailto:contact@svet.codes")}
+                    onClick={() => (window.location.href = "https://www.svetlanacodes.com")}
                     className="w-full bg-black text-white px-6 py-3 text-sm rounded-full hover:bg-neutral-800 dark:hover:bg-neutral-900 transition-colors duration-200 flex items-center justify-center"
                 >
                   <Loader />
@@ -50,7 +50,7 @@ const WebDevPromotion = () => {
                 <li>Maintenance and Support</li>
               </ul>
               <p className="text-neutral-600 dark:text-neutral-300 mb-4">
-                To learn more about our services or to discuss your project, please visit us at <a href="https://www.svet.developer.li" target="_blank" rel="noopener noreferrer" className="text-blue-600 dark:text-blue-400">svet.developer.li</a>.
+                To learn more about our services or to discuss your project, please visit us at <a href="https://www.svetlanacodes.com" target="_blank" rel="noopener noreferrer" className="text-blue-600 dark:text-blue-400">svetlanacodes.com</a>.
               </p>
             </div>
           </div>
@@ -64,7 +64,7 @@ const WebDevPromotion = () => {
           </p>
           <div className="flex flex-col sm:flex-row gap-4">
             <button
-                onClick={() => (window.location.href = "mailto:contact@svet.codes")}
+                onClick={() => (window.location.href = "https://www.svetlanacodes.com")}
                 className="w-full bg-black text-white px-6 py-3 text-sm rounded-full hover:bg-neutral-800 dark:hover:bg-neutral-900 transition-colors duration-200 flex items-center justify-center"
             >
               <Loader />

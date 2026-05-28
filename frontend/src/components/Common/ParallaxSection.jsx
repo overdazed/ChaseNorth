@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import spiralImage from "../../assets/spiral-circles.jpg";
+import spiralImage from "../../assets/7_1920_1080_30fps.mp4";
 
 const ParallaxSection = () => {
   const container = useRef();
@@ -38,20 +38,35 @@ const ParallaxSection = () => {
 
   return (
     <div
-      ref={container}
-      className="select-none relative flex items-center justify-center h-screen overflow-hidden"
-      style={{ clipPath: "polygon(0% 0, 100% 0%, 100% 100%, 0 100%)" }}
-    >
-      <div className="fixed top-[-10vh] left-0 h-[120vh] w-full pointer-events-none">
+       ref={container}
+       className="select-none relative flex items-center justify-center h-screen overflow-hidden bg-neutral-950"
+       style={{ clipPath: "polygon(0% 0, 100% 0%, 100% 100%, 0 100%)" }}
+     >
+      <div className="fixed top-[-10vh] left-0 h-[120vh] w-full pointer-events-none bg-neutral-950">
         <motion.div 
-          style={{ y }} 
-          className="relative w-full h-full"
-        >
-          <img 
-            src={spiralImage}
-            alt="Abstract spiral circles" 
-            className="w-full h-full object-cover pointer-events-auto" 
-          />
+           style={{ y }} 
+           className="relative w-full h-full"
+         >
+          <video 
+               autoPlay
+               muted
+               loop
+               playsInline
+               preload="auto"
+               className="w-full h-full object-cover bg-neutral-950 block"
+               style={{ 
+                 objectPosition: '85% center', 
+                 border: 'none', 
+                 margin: 0, 
+                 padding: 0,
+                 backgroundColor: 'black',
+                 display: 'block'
+               }}
+             >
+            <source src={spiralImage} type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+          
         </motion.div>
       </div>
 
@@ -60,7 +75,7 @@ const ParallaxSection = () => {
       </h3>
 
       <div className={`absolute right-4 sm:right-6 bottom-12 sm:bottom-12 z-10 w-full flex justify-end`}>
-        <p className="text-white text-base sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl max-w-[90%] sm:max-w-md md:max-w-lg lg:max-w-xl xl:max-w-5xl text-right">
+        <p className="text-white text-base sm:text-xl md:text-2xl lg:text-3xl xl:text-5xl max-w-[90%] sm:max-w-md md:max-w-lg lg:max-w-xl xl:max-w-5xl text-right">
           Every section is a frame for your story.<br className="sm:hidden" /> Shape it, remix it, and let your content spill<br className="sm:hidden" /> into unexpected patterns that keep people scrolling.
         </p>
       </div>

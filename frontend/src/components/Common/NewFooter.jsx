@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { TbBrandMeta } from "react-icons/tb";
 import { IoLogoInstagram } from "react-icons/io";
 import { RiTwitterXLine } from "react-icons/ri";
@@ -7,7 +7,17 @@ import { TbMail } from "react-icons/tb"
 import Loader from './Loader';
 
 const NewFooter = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
   const [expandedSection, setExpandedSection] = useState(null);
+
+  const handleNavigation = (path) => {
+    if (location.pathname === path) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      navigate(path);
+    }
+  };
 
   const toggleSection = (section) => {
     setExpandedSection(expandedSection === section ? null : section);
@@ -37,12 +47,12 @@ const NewFooter = () => {
                 </button>
                 {expandedSection === 'customerService' && (
                     <div className="space-y-2 pl-4 py-2">
-                      <Link to="/faq" className="block text-neutral-50 hover:text-neutral-400 text-sm">FAQ / Help</Link>
-                      <Link to="/return-policy" className="block text-neutral-50 hover:text-neutral-400 text-sm">Return policy</Link>
-                      <Link to="/size" className="block text-neutral-50 hover:text-neutral-400 text-sm">Size chart</Link>
-                      <Link to="/delivery" className="block text-neutral-50 hover:text-neutral-400 text-sm">Delivery</Link>
-                      <Link to="/payments" className="block text-neutral-50 hover:text-neutral-400 text-sm">Payments</Link>
-                      <Link to="/gift-card" className="block text-neutral-50 hover:text-neutral-400 text-sm">Gift card</Link>
+                      <Link to="/faq" onClick={() => handleNavigation('/faq')} className="block text-neutral-50 hover:text-neutral-400 text-sm">FAQ / Help</Link>
+                      <Link to="/return-policy" onClick={() => handleNavigation('/return-policy')} className="block text-neutral-50 hover:text-neutral-400 text-sm">Return policy</Link>
+                      <Link to="/size" onClick={() => handleNavigation('/size')} className="block text-neutral-50 hover:text-neutral-400 text-sm">Size chart</Link>
+                      <Link to="/delivery" onClick={() => handleNavigation('/delivery')} className="block text-neutral-50 hover:text-neutral-400 text-sm">Delivery</Link>
+                      <Link to="/payments" onClick={() => handleNavigation('/payments')} className="block text-neutral-50 hover:text-neutral-400 text-sm">Payments</Link>
+                      <Link to="/gift-card" onClick={() => handleNavigation('/gift-card')} className="block text-neutral-50 hover:text-neutral-400 text-sm">Gift card</Link>
                     </div>
                 )}
               </div>
@@ -53,16 +63,18 @@ const NewFooter = () => {
                     onClick={() => toggleSection('about')}
                     className="flex justify-between items-center w-full text-left py-2"
                 >
-                  <h3 className="uppercase text-neutral-400 text-sm">About</h3>
+                  <h3 className="uppercase text-neutral-400 text-sm">ChaseNorth</h3>
                   <span className="text-neutral-400 text-lg">
                   {expandedSection === 'about' ? '−' : '+'}
                 </span>
                 </button>
                 {expandedSection === 'about' && (
                     <div className="space-y-2 pl-4 py-2">
-                      <Link to="/projects" className="block text-neutral-50 hover:text-neutral-400 text-sm">Projects</Link>
-                      <Link to="/mission" className="block text-neutral-50 hover:text-neutral-400 text-sm">Our Mission</Link>
-                      <Link to="/contact" className="block text-neutral-50 hover:text-neutral-400 text-sm">Contact Us</Link>
+                      <Link to="/about" onClick={() => handleNavigation('/about')} className="block text-neutral-50 hover:text-neutral-400 text-sm">About Us</Link>
+                      <Link to="/mission" onClick={() => handleNavigation('/mission')} className="block text-neutral-50 hover:text-neutral-400 text-sm">Our Mission</Link>
+                      <Link to="/projects" onClick={() => handleNavigation('/projects')} className="block text-neutral-50 hover:text-neutral-400 text-sm">Projects</Link>
+                      <Link to="/sustainability" onClick={() => handleNavigation('/sustainability')} className="block text-neutral-50 hover:text-neutral-400 text-sm">Sustainability</Link>
+                      <Link to="/contact" onClick={() => handleNavigation('/contact')} className="block text-neutral-50 hover:text-neutral-400 text-sm">Contact Us</Link>
                     </div>
                 )}
               </div>
@@ -73,28 +85,26 @@ const NewFooter = () => {
                     onClick={() => toggleSection('chaseNorth')}
                     className="flex justify-between items-center w-full text-left py-2"
                 >
-                  <h3 className="uppercase text-neutral-400 text-sm">ChaseNorth</h3>
+                  <h3 className="uppercase text-neutral-400 text-sm">Legal / Compliance</h3>
                   <span className="text-neutral-400 text-lg">
                   {expandedSection === 'chaseNorth' ? '−' : '+'}
-                </span>
+                  </span>
                 </button>
                 {expandedSection === 'chaseNorth' && (
                     <div className="space-y-2 pl-4 py-2">
-                      <Link to="/about" className="block text-neutral-50 hover:text-neutral-400 text-sm">About Us</Link>
-                      <Link to="/mission" className="block text-neutral-50 hover:text-neutral-400 text-sm">Our Mission</Link>
-                      <Link to="/contact" className="block text-neutral-50 hover:text-neutral-400 text-sm">Contact Us</Link>
-                      <Link to="/sustainability" className="block text-neutral-50 hover:text-neutral-400 text-sm">Sustainability</Link>
-                      <Link to="/terms-and-conditions" className="block text-neutral-50 hover:text-neutral-400 text-sm">Terms and Conditions</Link>
-                      <Link to="/impressum" className="block text-neutral-50 hover:text-neutral-400 text-sm">Impressum</Link>
-                      {/* Need a website? Link - Added for mobile view */}
-                      <div className="flex items-center justify-left">
-                        <Loader />
-                        <Link to="/need-a-website" className="text-neutral-50 hover:text-neutral-400 transition-colors duration-300 text-sm">
-                          Need a website?
-                        </Link>
-                      </div>
+                      <Link to="/terms-and-conditions" onClick={() => handleNavigation('/terms-and-conditions')} className="block text-neutral-50 hover:text-neutral-400 text-sm">Terms and Conditions</Link>
+                      <Link to="/privacy-policy" onClick={() => handleNavigation('/privacy-policy')} className="block text-neutral-50 hover:text-neutral-400 text-sm">Privacy Policy</Link>
+                      <Link to="/impressum" onClick={() => handleNavigation('/impressum')} className="block text-neutral-50 hover:text-neutral-400 text-sm">Impressum</Link>
                     </div>
                 )}
+              </div>
+
+{/* Need a website? Link - Above social icons in mobile view */}
+              <div className="flex items-center justify-center pt-4">
+                <Loader />
+                <button onClick={() => handleNavigation('/need-a-website')} className="text-neutral-50 hover:text-neutral-400 transition-colors duration-300 text-sm bg-transparent border-none p-0 font-inherit cursor-pointer">
+                  Need a website?
+                </button>
               </div>
 
               {/* Social Icons - Moved here for mobile view */}
@@ -119,69 +129,64 @@ const NewFooter = () => {
               {/* Customer Service Section */}
               <div className="flex flex-col gap-1 sm:gap-2">
                 <h3 className="mb-1 sm:mb-2 uppercase text-neutral-400 text-xs sm:text-sm">Customer Service</h3>
-                <Link to="/faq" className="text-neutral-50 hover:text-neutral-400 transition-colors duration-300 text-sm sm:text-base">
+                <Link to="/faq" onClick={() => handleNavigation('/faq')} className="text-neutral-50 hover:text-neutral-400 transition-colors duration-300 text-sm sm:text-base">
                   FAQ / Help
                 </Link>
-                <Link to="/return-policy" className="text-neutral-50 hover:text-neutral-400 transition-colors duration-300 text-sm sm:text-base">
+                <Link to="/return-policy" onClick={() => handleNavigation('/return-policy')} className="text-neutral-50 hover:text-neutral-400 transition-colors duration-300 text-sm sm:text-base">
                   Return Policy
                 </Link>
-                <Link to="/size-chart" className="text-neutral-50 hover:text-neutral-400 transition-colors duration-300 text-sm sm:text-base">
+                <Link to="/size-chart" onClick={() => handleNavigation('/size-chart')} className="text-neutral-50 hover:text-neutral-400 transition-colors duration-300 text-sm sm:text-base">
                   Size chart
                 </Link>
-                <Link to="/delivery" className="text-neutral-50 hover:text-neutral-400 transition-colors duration-300 text-sm sm:text-base">
+                <Link to="/delivery" onClick={() => handleNavigation('/delivery')} className="text-neutral-50 hover:text-neutral-400 transition-colors duration-300 text-sm sm:text-base">
                   Delivery
                 </Link>
-                <Link to="/payments" className="text-neutral-50 hover:text-neutral-400 transition-colors duration-300 text-sm sm:text-base">
+                <Link to="/payments" onClick={() => handleNavigation('/payments')} className="text-neutral-50 hover:text-neutral-400 transition-colors duration-300 text-sm sm:text-base">
                   Payments
                 </Link>
-                <Link to="/gift-card" className="text-neutral-50 hover:text-neutral-400 transition-colors duration-300 text-sm sm:text-base">
+                <Link to="/gift-card" onClick={() => handleNavigation('/gift-card')} className="text-neutral-50 hover:text-neutral-400 transition-colors duration-300 text-sm sm:text-base">
                   Gift card
                 </Link>
               </div>
 
               {/* About Section */}
               <div className="flex flex-col gap-1 sm:gap-2">
-                <h3 className="mb-1 sm:mb-2 uppercase text-neutral-400 text-xs sm:text-sm">About</h3>
-                <Link to="/projects" className="text-neutral-50 hover:text-neutral-400 transition-colors duration-300 text-sm sm:text-base">
-                  Projects
+                <h3 className="mb-1 sm:mb-2 uppercase text-neutral-400 text-xs sm:text-sm">ChaseNorth</h3>
+                <Link to="/about" onClick={() => handleNavigation('/about')} className="text-neutral-50 hover:text-neutral-400 transition-colors duration-300 text-sm sm:text-base">
+                  About Us
                 </Link>
-                <Link to="/mission" className="text-neutral-50 hover:text-neutral-400 transition-colors duration-300 text-sm sm:text-base">
+                <Link to="/mission" onClick={() => handleNavigation('/mission')} className="text-neutral-50 hover:text-neutral-400 transition-colors duration-300 text-sm sm:text-base">
                   Our Mission
                 </Link>
-                <Link to="/contact" className="text-neutral-50 hover:text-neutral-400 transition-colors duration-300 text-sm sm:text-base">
+                <Link to="/projects" onClick={() => handleNavigation('/projects')} className="text-neutral-50 hover:text-neutral-400 transition-colors duration-300 text-sm sm:text-base">
+                  Projects
+                </Link>
+                <Link to="/sustainability" onClick={() => handleNavigation('/sustainability')} className="text-neutral-50 hover:text-neutral-400 transition-colors duration-300 text-sm sm:text-base">
+                  Sustainability
+                </Link>
+                <Link to="/contact" onClick={() => handleNavigation('/contact')} className="text-neutral-50 hover:text-neutral-400 transition-colors duration-300 text-sm sm:text-base">
                   Contact Us
                 </Link>
               </div>
 
               {/* Chase North Section */}
               <div className="flex flex-col gap-1 sm:gap-2">
-                <h3 className="mb-1 sm:mb-2 uppercase text-neutral-400 text-xs sm:text-sm">ChaseNorth</h3>
-                <Link to="/about" className="text-neutral-50 hover:text-neutral-400 transition-colors duration-300 text-sm sm:text-base">
-                  About Us
-                </Link>
-                <Link to="/mission" className="text-neutral-50 hover:text-neutral-400 transition-colors duration-300 text-sm sm:text-base">
-                  Our Mission
-                </Link>
-                <Link to="/contact" className="text-neutral-50 hover:text-neutral-400 transition-colors duration-300 text-sm sm:text-base">
-                  Contact Us
-                </Link>
-                <Link to="/sustainability" className="text-neutral-50 hover:text-neutral-400 transition-colors duration-300 text-sm sm:text-base">
-                  Sustainability
-                </Link>
-                <Link to="/terms-and-conditions" className="text-neutral-50 hover:text-neutral-400 transition-colors duration-300 text-sm sm:text-base">
+                <h3 className="mb-1 sm:mb-2 uppercase text-neutral-400 text-xs sm:text-sm">Legal / Compliance</h3>
+                
+                <Link to="/terms-and-conditions" onClick={() => handleNavigation('/terms-and-conditions')} className="text-neutral-50 hover:text-neutral-400 transition-colors duration-300 text-sm sm:text-base">
                   Terms and Conditions
                 </Link>
-                <Link to="/privacy-policy" className="text-neutral-50 hover:text-neutral-400 transition-colors duration-300 text-sm sm:text-base">
+                <Link to="/privacy-policy" onClick={() => handleNavigation('/privacy-policy')} className="text-neutral-50 hover:text-neutral-400 transition-colors duration-300 text-sm sm:text-base">
                   Privacy Policy
                 </Link>
-                <Link to="/impressum" className="text-neutral-50 hover:text-neutral-400 transition-colors duration-300 text-sm sm:text-base">
+                <Link to="/impressum" onClick={() => handleNavigation('/impressum')} className="text-neutral-50 hover:text-neutral-400 transition-colors duration-300 text-sm sm:text-base">
                   Impressum
                 </Link>
                 <div className="flex items-center gap-2">
                   <Loader />
-                  <Link to="/need-a-website" className="text-neutral-50 hover:text-neutral-400 transition-colors duration-300 text-sm sm:text-base">
+                  <button onClick={() => handleNavigation('/need-a-website')} className="text-neutral-50 hover:text-neutral-400 transition-colors duration-300 text-sm sm:text-base bg-transparent border-none p-0 font-inherit cursor-pointer">
                     Need a website?
-                  </Link>
+                  </button>
                 </div>
               </div>
 

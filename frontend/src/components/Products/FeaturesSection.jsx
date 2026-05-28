@@ -35,7 +35,7 @@ const FeaturesSection = () => {
                     Free International Shipping
                 </h4>
                 <p className="dark:text-neutral-300 text-neutral-600 text-sm tracking-tighter">
-                    On all orders over $100.00
+                    On all orders over 100€ without discounts
                 </p>
             </div>
 

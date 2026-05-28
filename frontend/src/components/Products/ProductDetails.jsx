@@ -521,7 +521,7 @@ const ProductDetails = ({ productId: propProductId, showRecommendations = true }
 
                                         {/* Recently Viewed Section - Desktop (under main image) */}
                                         <div className="hidden md:block mt-4 w-full">
-                                            <h3 className={`text-xl font-bold mb-4 ${themeClasses.text}`}>Recently Viewed</h3>
+                                            <h3 className={`text-xl font-bold mb-4 select-none ${themeClasses.text}`}>Recently Viewed</h3>
                                             <div className="relative max-w-lg mx-auto">
                                                 <Carousel
                                                     opts={{
@@ -682,7 +682,7 @@ const ProductDetails = ({ productId: propProductId, showRecommendations = true }
                                                 <div className="flex items-center">
                                                     <PartialStarRating rating={selectedProduct?.rating || 0} size="sm" />
                                                 </div>
-                                                <p className={`ms-2 text-sm font-bold ${isDay ? 'text-neutral-950' : 'text-neutral-50'}`}>
+                                                <p className={`ms-2 text-sm font-bold select-none ${isDay ? 'text-neutral-950' : 'text-neutral-50'}`}>
                                                     {selectedProduct?.rating?.toFixed(1) || '0.0'}
                                                 </p>
                                                 <span className="w-1 h-1 mx-1.5 bg-neutral-500 rounded-full dark:bg-neutral-400"></span>
@@ -711,7 +711,7 @@ const ProductDetails = ({ productId: propProductId, showRecommendations = true }
 
                                     {/* Color Selection */}
                                     <div className={`${selectedColor ? 'mb-1' : 'mb-6'}`}>
-                                        <p className={`mb-2 ${themeClasses.characteristics.text}`}>Color:</p>
+                                        <p className={`mb-2 select-none ${themeClasses.characteristics.text}`}>Color:</p>
                                         <div className="flex flex-wrap gap-2">
                                             {selectedProduct.colors?.map((colorName) => (
                                                 <div key={colorName} className="flex flex-col items-center">
@@ -757,7 +757,7 @@ const ProductDetails = ({ productId: propProductId, showRecommendations = true }
                                     <div className="mb-6">
                                         {/*<p className={`mb-2 ${themeClasses.characteristics.text}`}>Size:</p>*/}
                                         <div className="flex justify-between items-center mb-2">
-                                            <p className={`mb-2 ${themeClasses.characteristics.text}`}>Size: <span>{selectedProduct.sizeChartData && selectedProduct.sizeChartData.length > 0 && (
+                                            <p className={`mb-2 select-none ${themeClasses.characteristics.text}`}>Size: <span>{selectedProduct.sizeChartData && selectedProduct.sizeChartData.length > 0 && (
                                                 <button
                                                     onClick={() => setShowSizeChart(true)}
                                                     className="text-sm text-indigo-600 hover:no-underline underline dark:text-gray-400"
@@ -787,7 +787,7 @@ const ProductDetails = ({ productId: propProductId, showRecommendations = true }
                                                                 : 'bg-white text-black border-black'
                                                             : isDay
                                                                 ? 'bg-white border-neutral-300 hover:border-neutral-400 hover:bg-neutral-100 text-black'
-                                                                : 'bg-black border-black hover:border-black hover:bg-neutral-900 text-neutral-50'
+                                                                : 'bg-black border-neutral-800 hover:border-black hover:bg-neutral-800 text-neutral-50'
                                                     }`}
                                                 >
                                                     {size}
@@ -798,7 +798,7 @@ const ProductDetails = ({ productId: propProductId, showRecommendations = true }
 
                                     {/* Quantity Selector */}
                                     <div className="mb-8">
-                                        <p className={`mb-2 ${themeClasses.characteristics.text}`}>Quantity:</p>
+                                        <p className={`mb-2 select-none ${themeClasses.characteristics.text}`}>Quantity:</p>
                                         <div className={`flex items-center border-[0.5px] ${themeClasses.border} w-32 rounded-md overflow-hidden`}>
                                             <button
                                                 className={`w-10 h-10 flex items-center justify-center border-r ${themeClasses.border} ${isDay ? 'hover:bg-neutral-100' : 'hover:bg-neutral-800'}`}
@@ -806,9 +806,9 @@ const ProductDetails = ({ productId: propProductId, showRecommendations = true }
                                             >
                                                 <span className={themeClasses.text}>-</span>
                                             </button>
-                                            <div className={`flex-1 text-center ${themeClasses.text}`}>
-                                                {quantity}
-                                            </div>
+                                               <div className={`flex-1 text-center select-none ${themeClasses.text}`}>
+                                                    {quantity}
+                                                </div>
                                             <button
                                                 className={`w-10 h-10 flex items-center justify-center border-l ${themeClasses.border} ${isDay ? 'hover:bg-neutral-100' : 'hover:bg-neutral-800'}`}
                                                 onClick={() => handleQuantityChange('plus')}
@@ -831,7 +831,7 @@ const ProductDetails = ({ productId: propProductId, showRecommendations = true }
                                             className={`flex-1 h-12 flex items-center justify-center rounded-full text-sm font-slim transition-colors duration-200 ${
                                                 isButtonDisabled
                                                     ? 'bg-neutral-400 cursor-not-allowed'
-                                                    : `bg-black text-neutral-50 hover:bg-neutral-900`
+                                                    : `bg-accent text-neutral-50 hover:bg-[#4a0e00]`
                                             }`}
                                         >
                                             {isButtonDisabled ? 'Adding...' : 'Add to Cart'}
@@ -963,7 +963,7 @@ const ProductDetails = ({ productId: propProductId, showRecommendations = true }
                                         <div className="md:hidden">
                                             {recentlyViewed.filter(p => p._id !== selectedProduct?._id).length > 0 && (
                                                 <div className="mt-8">
-                                                    <h2 className={`text-2xl text-center font-medium mb-8 ${themeClasses.text}`}>
+                                                    <h2 className={`text-2xl text-center font-medium mb-8 select-none ${themeClasses.text}`}>
                                                         Recently Viewed
                                                     </h2>
                                                     <ProductGrid
@@ -1168,7 +1168,7 @@ const ProductDetails = ({ productId: propProductId, showRecommendations = true }
                                 }
                                 setShowReviewModal(true);
                             }}
-                            className="px-4 py-2.5 text-sm font-medium text-neutral-50 bg-black rounded-full hover:bg-neutral-900 transition-colors"
+                            className="px-4 py-2.5 text-sm font-medium text-neutral-50 bg-accent rounded-full hover:bg-[#4a0e00] transition-colors"
                         >
                             Write a Review
                         </button>
@@ -1375,7 +1375,7 @@ const ProductDetails = ({ productId: propProductId, showRecommendations = true }
                             }}
                             className={`px-4 py-2 text-sm rounded-full transition-colors ${
                                 selectedStarFilter === null
-                                    ? 'bg-indigo-600 text-neutral-50'
+                                    ? 'bg-accent text-neutral-50'
                                     : 'bg-white text-neutral-700 hover:bg-neutral-50 dark:bg-neutral-800 dark:text-neutral-300 dark:border-neutral-600 dark:hover:bg-neutral-700'
                             }`}
                         >
