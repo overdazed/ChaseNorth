@@ -143,7 +143,7 @@ const UnderConstructionScreen = ({ onComplete }) => {
             setTimeout(() => {
                 onComplete();
             }, 1000); // 1 second for fade animation
-        }, 8000); // 8 seconds showing "under construction"
+        }, 5000); // 8 seconds showing "under construction"
 
         return () => clearTimeout(timer);
     }, [onComplete]);
@@ -160,10 +160,10 @@ const UnderConstructionScreen = ({ onComplete }) => {
                     </svg>
                 </div>
                 <h1 className="text-4xl md:text-6xl font-bold text-red-400 mb-4 fade-in">
-                    This site is
+                    This site is a demo
                 </h1>
                 <h2 className="text-3xl md:text-5xl font-bold text-red-500 mb-8 animate-pulse">
-                    under construction
+                    and under construction
                 </h2>
                 <div className="flex justify-center">
                     <div className="w-16 h-1 bg-red-200 rounded-full animate-pulse"></div>
