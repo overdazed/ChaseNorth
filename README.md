@@ -1,5 +1,4 @@
 # ChaseNorth E-Commerce Website
-#### Video Demo:  https://youtu.be/8_QRJsE1tAY
 
 ## Why?
 I wanted to build an online store and didn't wanted to use Shopify, so I thought I'd make my own.
