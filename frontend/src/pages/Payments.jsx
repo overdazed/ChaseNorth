@@ -39,10 +39,10 @@ const Payments = () => {
                 We offer a variety of secure payment methods to make your shopping experience convenient and hassle-free. Choose the option that best suits your needs.
               </p>
               <ul className="list-disc pl-5 text-neutral-600 dark:text-neutral-300 mb-4">
-                <li>Credit/Debit Cards: Visa, MasterCard, American Express.</li>
                 <li>PayPal: Secure and convenient online payments.</li>
-                <li>Bank Transfer: Direct bank transfers for larger orders.</li>
-                <li>Apple Pay/Google Pay: Fast and secure mobile payments.</li>
+                <li>Credit/Debit Cards: Visa, MasterCard, American Express.</li>
+                {/* <li>Bank Transfer: Direct bank transfers for larger orders.</li>
+                <li>Apple Pay/Google Pay: Fast and secure mobile payments.</li> */}
               </ul>
               <p className="text-neutral-600 dark:text-neutral-300 mb-4">
                 For more information about our payment options, please contact us at <a href="mailto:support@chasenorth.com" className="text-blue-600 dark:text-blue-400">support@chasenorth.com</a>.

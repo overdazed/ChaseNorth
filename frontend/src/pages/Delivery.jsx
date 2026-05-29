@@ -40,9 +40,9 @@ const Delivery = () => {
               </p>
               <ul className="list-disc pl-5 text-neutral-600 dark:text-neutral-300 mb-4">
                 <li>Standard Delivery: 3-5 business days.</li>
-                <li>Express Delivery: 1-2 business days.</li>
+                {/* <li>Express Delivery: 1-2 business days.</li>
                 <li>Same-Day Delivery: Available in select locations.</li>
-                <li>International Delivery: Available for most countries.</li>
+                <li>International Delivery: Available for most countries.</li> */}
               </ul>
               <p className="text-neutral-600 dark:text-neutral-300 mb-4">
                 For more information about our delivery options, please contact us at <a href="mailto:support@chasenorth.com" className="text-blue-600 dark:text-blue-400">support@chasenorth.com</a>.

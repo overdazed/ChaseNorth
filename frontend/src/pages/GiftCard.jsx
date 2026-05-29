@@ -39,9 +39,9 @@ const GiftCard = () => {
                 ChaseNorth gift cards are the perfect gift for any outdoor enthusiast. Choose from a variety of denominations and designs to suit any occasion.
               </p>
               <ul className="list-disc pl-5 text-neutral-600 dark:text-neutral-300 mb-4">
-                <li>Available in denominations of $25, $50, $100, and $200.</li>
+                <li>Available in denominations of 25€, 50€, 100€, and 200€.</li>
                 <li>Customizable designs for birthdays, holidays, and special occasions.</li>
-                <li>Redeemable online or in-store for any ChaseNorth products.</li>
+                <li>Redeemable for any ChaseNorth products.</li>
                 <li>No expiration date, so your gift can be used anytime.</li>
               </ul>
               <p className="text-neutral-600 dark:text-neutral-300 mb-4">

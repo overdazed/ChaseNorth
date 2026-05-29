@@ -21,7 +21,7 @@ const FAQPage = () => {
     },
     {
       question: 'Do you ship internationally?',
-      answer: 'Yes, we ship to most countries worldwide. Shipping costs and delivery times may vary depending on your location.'
+      answer: 'No, we ship to european countries incl. Switzerland. Shipping costs and delivery times may vary depending on your location.'
     },
     {
       question: 'How can I contact customer support?',
