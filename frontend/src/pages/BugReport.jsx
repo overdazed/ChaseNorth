@@ -246,7 +246,7 @@ const BugReport = () => {
                 <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full flex-1 h-12 flex items-center justify-center py-3 rounded-full text-sm font-slim text-neutral-50 transition-colors duration-200 bg-black hover:bg-neutral-800 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="w-full flex-1 h-12 flex items-center justify-center py-3 rounded-full text-sm font-slim text-neutral-50 transition-colors duration-200 bg-accent hover:bg-neutral-800 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {isSubmitting ? 'Submitting...' : 'Submit Bug Report'}
                 </button>

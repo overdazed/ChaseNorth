@@ -270,7 +270,7 @@ const DiscoverWeeklyContent = ({ isDarkMode }) => {
             Discover Weekly
           </h1>
           <p className="text-center mb-16 text-sm lg:text-md max-w-2xl mx-auto px-2 dark:text-neutral-400 text-neutral-600">
-            Lorem ipsum
+            Fresh finds for your next adventure!
           </p>
 
 
